@@ -25,8 +25,6 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        base.Initialize();
-
         // Loading scenes
         var scenesList = new List<Scene>();
 
@@ -41,6 +39,8 @@ public class Game1 : Game
         }
 
         SceneManager.LoadScenes(scenesList.ToArray());
+
+        base.Initialize();
     }
 
     protected override void LoadContent()

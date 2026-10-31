@@ -7,7 +7,7 @@ namespace KomaruDungeons.KomaruDungeons.System;
 
 public abstract class Scene
 {
-    protected List<SpriteRectangle> rectangles;
+    protected List<SpriteRectangle> rectangles = new List<SpriteRectangle>();
 
     public abstract void Load(ContentManager content);
     public abstract void Update(GameTime gameTime);

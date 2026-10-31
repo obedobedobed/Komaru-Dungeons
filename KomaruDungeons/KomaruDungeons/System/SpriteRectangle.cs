@@ -39,12 +39,12 @@ public class SpriteRectangle
         mode = SpriteRectangleMode.Atlas;
     }
 
-    public void Update(GameTime gameTime)
+    public virtual void Update(GameTime gameTime)
     {
         
     }
 
-    public void Draw(SpriteBatch spriteBatch)
+    public virtual void Draw(SpriteBatch spriteBatch)
     {
         switch (mode)
         {
