@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace KomaruDungeons.KomaruDungeons.System;
 
+// Object
+// Using sprite or atlas
+// Main class for all object
 public class SpriteRectangle
 {
     protected Texture2D sprite;

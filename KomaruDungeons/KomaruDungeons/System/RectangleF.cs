@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 
 namespace KomaruDungeons.KomaruDungeons.System;
 
+// Rectangle with float values instead of integer
 public class RectangleF
 {
     public Vector2 position;

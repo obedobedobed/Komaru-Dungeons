@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace KomaruDungeons.KomaruDungeons.System;
 
+// Class for scenes managing
+// Can load, update or draw a scene
 public static class SceneManager
 {
     private static Scene[] scenes;

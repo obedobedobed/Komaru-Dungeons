@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace KomaruDungeons.KomaruDungeons.System;
 
+// Divides one texture to multiply sprites
 public class Atlas
 {
     public Texture2D Sprite { get; private set; }
