@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using KomaruDungeons.KomaruDungeons.Scenes;
+using KomaruDungeons.KomaruDungeons.System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -9,6 +12,10 @@ public class Game1 : Game
     private GraphicsDeviceManager graphics;
     private SpriteBatch spriteBatch;
 
+    // Scenes
+    private const int GAME_SCENE_INDEX = 0;
+    private const int SCENES_COUNT = 1;
+
     public Game1()
     {
         graphics = new GraphicsDeviceManager(this);
@@ -18,24 +25,34 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        // TODO: Add your initialization logic here
-
         base.Initialize();
+
+        // Loading scenes
+        var scenesList = new List<Scene>();
+
+        for (int i = 0; i < SCENES_COUNT; i++)
+        {
+            switch (i)
+            {
+                case GAME_SCENE_INDEX:
+                    scenesList.Add(new GameScene());
+                break;
+            }
+        }
+
+        SceneManager.LoadScenes(scenesList.ToArray());
     }
 
     protected override void LoadContent()
     {
         spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        // TODO: use this.Content to load your game content here
+        SceneManager.LoadScene(GAME_SCENE_INDEX, Content);
     }
 
     protected override void Update(GameTime gameTime)
     {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            Exit();
-
-        // TODO: Add your update logic here
+        SceneManager.UpdateScene(gameTime);
 
         base.Update(gameTime);
     }
@@ -44,7 +61,7 @@ public class Game1 : Game
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        // TODO: Add your drawing code here
+        SceneManager.DrawScene(spriteBatch);
 
         base.Draw(gameTime);
     }
