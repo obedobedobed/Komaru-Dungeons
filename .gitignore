@@ -1,0 +1,113 @@
+
+## .NET / MonoGame / VS Code
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+artifacts/
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# NuGet
+*.nupkg
+*.snupkg
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Temporary files
+~$*
+*~
+*.tmp
+*.temp
+*.bak
+*.old
+
+# Code coverage
+CodeCoverage/
+coverage/
+coverage.*
+
+# MSBuild logs
+*.binlog
+BuildLog.*
+
+# MSTest
+[Tt]est[Rr]esult*/
+*.trx
+
+# NUnit
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+
+# xUnit
+*.TestResults.xml
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.cache
+
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# VS Code
+.vscode/
+.config/
+.history/
+*.code-workspace
+
+# C# tooling
+*.csproj.user
+*.DotSettings.user
+*.sln.iml
+
+# MonoGame
+# Generated content pipeline output
+**/bin/
+**/obj/
+**/Content/bin/
+**/Content/obj/
+
+# MonoGame Content Pipeline temporary files
+*.mgcontent.cache
+*.mgstats
+
+# Compiled assets
+*.xnb
+
+# MonoGame / graphics temporary files
+*.pdb
+*.mdb
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
