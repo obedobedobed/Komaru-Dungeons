@@ -30,6 +30,12 @@ public class Player : SpriteRectangle
     private const int FRAME_RUN_5  = 8;
     private const int FRAME_DEAD   = 9;
 
+    // Animations
+    private int frameIndex = 0;
+    private int[] AnimIdle = [FRAME_IDLE_0, FRAME_IDLE_1, FRAME_IDLE_2, FRAME_IDLE_1];
+    private int[] AnimRun = [FRAME_RUN_0, FRAME_RUN_1, FRAME_RUN_2, FRAME_RUN_1];
+    private int[] AnimDead = [FRAME_DEAD];
+
     // Misc
     private Vector2 lastPos;
 
@@ -96,6 +102,7 @@ public class Player : SpriteRectangle
 
     private void Animate(float delta)
     {
+        // Animation
         if (position == lastPos && animation != Animation.Idle)
         {
             animation = Animation.Idle;
@@ -109,32 +116,37 @@ public class Player : SpriteRectangle
             frame = FRAME_RUN_0;
         }
 
+        // Frame
         if ((frameTime -= delta) <= 0)
         {
-            frame++;
+            frameIndex++;
 
             switch (animation)
             {
                 case Animation.Idle:
-                    if (frame > FRAME_IDLE_2)
+                    if (frameIndex >= AnimIdle.Length)
                     {
-                        frame = FRAME_IDLE_0;
+                        frameIndex = 0;
                     }
+                    frame = AnimIdle[frameIndex];
                 break;
                 case Animation.Run:
-                    if (frame > FRAME_RUN_5)
+                    if (frameIndex >= AnimRun.Length)
                     {
-                        frame = FRAME_RUN_0;
+                        frameIndex = 0;
                     }
+                    frame = AnimRun[frameIndex];
                 break;
                 case Animation.Dead:
-                    frame = FRAME_DEAD;
+                    frameIndex = 0; // Because single frame animation
+                    frame = AnimIdle[frameIndex];
                 break;
             }
 
             frameTime = FRAME_TIME;
         }
 
+        // Flip
         if (hDirection == HorizontalDirection.Right)
         {
             flipX = false;
