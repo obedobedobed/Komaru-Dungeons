@@ -15,6 +15,7 @@ public class SpriteRectangle
     protected Vector2 size;
     protected SpriteRectangleMode mode;
     protected bool flipX = false;
+    protected bool flipY = false;
     protected float rotation = 0f;
     protected Vector2 rotationOrigin = Vector2.Zero;
 
@@ -58,14 +59,15 @@ public class SpriteRectangle
     public virtual void Draw(SpriteBatch spriteBatch)
     {
         var flipXEffect = flipX ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+        var flipYEffect = flipY ? SpriteEffects.FlipVertically : SpriteEffects.None;
 
         switch (mode)
         {
             case SpriteRectangleMode.Solo:
-                spriteBatch.Draw(sprite, Rect.ToRectangle, null, Color.White, rotation, rotationOrigin, flipXEffect, 0f);
+                spriteBatch.Draw(sprite, Rect.ToRectangle, null, Color.White, rotation, rotationOrigin, flipXEffect | flipYEffect, 0f);
             break;
             case SpriteRectangleMode.Atlas:
-                spriteBatch.Draw(atlas.Sprite, Rect.ToRectangle, atlas.SpriteRects[frame], Color.White, rotation, rotationOrigin, flipXEffect, 0f);
+                spriteBatch.Draw(atlas.Sprite, Rect.ToRectangle, atlas.SpriteRects[frame], Color.White, rotation, rotationOrigin, flipXEffect | flipYEffect, 0f);
             break;
         }
     }

@@ -44,6 +44,15 @@ public abstract class Weapon : SpriteRectangle
         var mousePos = new Vector2(mouse.X, mouse.Y);
         var dir = mousePos - position;
         rotation = MathF.Atan2(dir.Y, dir.X);
+
+        if (rotation < -MathF.PI / 2 || rotation > MathF.PI / 2) // 90 degrees = PI / 2 radians
+        {
+            flipY = true;
+        }
+        else
+        {
+            flipY = false;
+        }
     }
 
     protected virtual void GetInput()
