@@ -15,12 +15,22 @@ public class SpriteRectangle
     protected Vector2 size;
     protected SpriteRectangleMode mode;
     protected bool flipX = false;
+    protected float rotation = 0f;
+    protected Vector2 rotationOrigin = Vector2.Zero;
 
     public RectangleF Rect
     {
         get
         {
             return new RectangleF(position, size);
+        }
+    }
+
+    public Vector2 Center
+    {
+        get
+        {
+            return new Vector2(position.X + size.X / 2, position.Y + size.Y / 2);
         }
     }
 
@@ -52,10 +62,10 @@ public class SpriteRectangle
         switch (mode)
         {
             case SpriteRectangleMode.Solo:
-                spriteBatch.Draw(sprite, Rect.ToRectangle, null, Color.White, 0f, Vector2.Zero, flipXEffect, 0f);
+                spriteBatch.Draw(sprite, Rect.ToRectangle, null, Color.White, rotation, rotationOrigin, flipXEffect, 0f);
             break;
             case SpriteRectangleMode.Atlas:
-                spriteBatch.Draw(atlas.Sprite, Rect.ToRectangle, atlas.SpriteRects[frame], Color.White, 0f, Vector2.Zero, flipXEffect, 0f);
+                spriteBatch.Draw(atlas.Sprite, Rect.ToRectangle, atlas.SpriteRects[frame], Color.White, rotation, rotationOrigin, flipXEffect, 0f);
             break;
         }
     }

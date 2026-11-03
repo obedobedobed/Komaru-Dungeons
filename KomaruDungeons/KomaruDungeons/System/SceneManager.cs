@@ -36,4 +36,9 @@ public static class SceneManager
     {
         scenes[currentScene].Draw(spriteBatch);
     }
+
+    public static void InstantiateRect(SpriteRectangle rect)
+    {
+        scenes[currentScene].InstantiateRect(rect);
+    }
 }

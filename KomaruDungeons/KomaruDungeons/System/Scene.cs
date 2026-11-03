@@ -8,8 +8,14 @@ namespace KomaruDungeons.KomaruDungeons.System;
 public abstract class Scene
 {
     protected List<SpriteRectangle> rectangles = new List<SpriteRectangle>();
+    protected List<SpriteRectangle> instRects = new List<SpriteRectangle>();
 
     public abstract void Load(ContentManager content);
     public abstract void Update(GameTime gameTime);
     public abstract void Draw(SpriteBatch spriteBatch);
+
+    public void InstantiateRect(SpriteRectangle rect)
+    {
+        instRects.Add(rect);
+    }
 }

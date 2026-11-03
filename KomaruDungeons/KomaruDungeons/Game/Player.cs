@@ -1,5 +1,6 @@
 using KomaruDungeons.KomaruDungeons.System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace KomaruDungeons.KomaruDungeons.Game;
@@ -13,6 +14,10 @@ public class Player : SpriteRectangle
     private VerticalDirection vDirection = VerticalDirection.None;
     private HorizontalDirection hDirection = HorizontalDirection.None;
 
+    // Weapon
+    private Weapon[] weapons = new Weapon[2];
+    private int currentWeapon = 0;
+
     // Animation
     private const float FRAME_TIME = 0.2f;
     private float frameTime = FRAME_TIME;
@@ -25,10 +30,7 @@ public class Player : SpriteRectangle
     private const int FRAME_RUN_0  = 3;
     private const int FRAME_RUN_1  = 4;
     private const int FRAME_RUN_2  = 5;
-    private const int FRAME_RUN_3  = 6;
-    private const int FRAME_RUN_4  = 7;
-    private const int FRAME_RUN_5  = 8;
-    private const int FRAME_DEAD   = 9;
+    private const int FRAME_DEAD   = 6;
 
     // Animations
     private int frameIndex = 0;
@@ -39,9 +41,10 @@ public class Player : SpriteRectangle
     // Misc
     private Vector2 lastPos;
 
-    public Player(Atlas atlas, Vector2 position, Vector2 size) : base(atlas, position, size)
+    public Player(Atlas atlas, Vector2 position, Vector2 size, Weapon startWeapon) : base(atlas, position, size)
     {
-        // Nothing here yet
+        weapons[currentWeapon] = startWeapon;
+        weapons[currentWeapon].SetPlayer(this);
     }
 
     public override void Update(GameTime gameTime)
@@ -52,6 +55,7 @@ public class Player : SpriteRectangle
         GetInput();
         Move(delta);
         Animate(delta);
+        weapons[currentWeapon].Update(gameTime);
     }
     
     private void GetInput()
@@ -162,5 +166,11 @@ public class Player : SpriteRectangle
         Idle,
         Run,
         Dead
+    }
+
+    public override void Draw(SpriteBatch spriteBatch)
+    {
+        base.Draw(spriteBatch);
+        weapons[currentWeapon].Draw(spriteBatch);
     }
 }
