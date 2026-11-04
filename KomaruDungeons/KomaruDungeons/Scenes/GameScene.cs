@@ -28,6 +28,16 @@ public class GameScene : Scene
         {
             rectangles.Add(rect);
         }
+
+        instRects.Clear();
+
+        // Removing removed rects from rects array
+        foreach (var rect in rmRects)
+        {
+            rectangles.Remove(rect);
+        }
+
+        rmRects.Clear();
     }
 
     public override void Draw(SpriteBatch spriteBatch)

@@ -151,13 +151,13 @@ public class Player : SpriteRectangle
         }
 
         // Flip
-        if (hDirection == HorizontalDirection.Right)
-        {
-            flipX = false;
-        }
-        else if (hDirection == HorizontalDirection.Left)
+        if (weapons[currentWeapon].FlippedY)
         {
             flipX = true;
+        }
+        else
+        {
+            flipX = false;
         }
     }
 

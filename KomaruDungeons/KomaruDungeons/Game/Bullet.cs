@@ -1,3 +1,4 @@
+using System;
 using KomaruDungeons.KomaruDungeons.System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -33,13 +34,15 @@ public class Bullet : SpriteRectangle
 
         if (lifeTimeNow <= 0)
         {
-            // Rect deleting implementation here
+            SceneManager.RemoveRect(this);
         }
     }
 
     private void Move(float delta)
     {
-        position += direction * speed * delta;
+        Console.WriteLine($"Speed: {speed}, Direction: {direction}, Position: {position}");
+        var totalMove = direction * speed;
+        position += totalMove;
     }
 
     public void Instantiate(Vector2 position, Vector2 direction, float rotation)

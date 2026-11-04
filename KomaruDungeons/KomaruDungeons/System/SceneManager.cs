@@ -41,4 +41,9 @@ public static class SceneManager
     {
         scenes[currentScene].InstantiateRect(rect);
     }
+
+    public static void RemoveRect(SpriteRectangle rect)
+    {
+        scenes[currentScene].RemoveRect(rect);
+    }
 }

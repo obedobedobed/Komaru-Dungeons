@@ -11,6 +11,7 @@ public abstract class Weapon : SpriteRectangle
     protected float fireCooldown;
     protected float fireCooldownNow;
     private Player player = null;
+    public bool FlippedY { get { return flipY; } }
 
     public Weapon(Texture2D sprite, Vector2 position, Vector2 size, float fireCooldown) : base(sprite, position, size)
     {
