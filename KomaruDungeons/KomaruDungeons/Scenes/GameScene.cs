@@ -25,6 +25,10 @@ public class GameScene : Scene
         foreach (var rect in rectangles)
         {
             rect.Update(gameTime);
+            if (rect.Tag == RectangleTag.Bullet)
+            {
+                (rect as Bullet).CheckCollisions(rectangles.ToArray());
+            }
         }
 
         // Adding instantiated rects to rects array

@@ -5,5 +5,6 @@ public enum RectangleTag
     None,
     Player,
     Enemy,
-    Weapon
+    Weapon,
+    Bullet
 }

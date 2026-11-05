@@ -11,7 +11,7 @@ public class Pug : Enemy
     private const int DEAD_ANIM = 2;
     private const int ANIMS_COUNT = 3;
 
-    public Pug(Atlas atlas, Vector2 position, Vector2 size, Player player) : base(atlas, position, size, 70f, player, 0.2f)
+    public Pug(Atlas atlas, Vector2 position, Vector2 size, Player player) : base(atlas, position, size, 70f, player, 0.2f, 20)
     {
         anims = new int[3][];
         for (int i = 0; i < anims.Length; i++)

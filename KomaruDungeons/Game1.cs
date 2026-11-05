@@ -16,6 +16,9 @@ public class Game1 : Game
     private const int GAME_SCENE_INDEX = 0;
     private const int SCENES_COUNT = 1;
 
+    // Misc
+    public static Texture2D Pixel { get; private set; }
+
     public Game1()
     {
         graphics = new GraphicsDeviceManager(this);
@@ -47,6 +50,7 @@ public class Game1 : Game
     {
         spriteBatch = new SpriteBatch(GraphicsDevice);
 
+        Pixel = Content.Load<Texture2D>("Sprites/Pixel");
         SceneManager.LoadScene(GAME_SCENE_INDEX, Content);
     }
 
