@@ -7,14 +7,12 @@ namespace KomaruDungeons.KomaruDungeons.Game;
 public class Gun : Weapon
 {
     private Bullet bullet;
-    private Vector2 shootPointNonFlip = Vector2.Zero;
-    private Vector2 shootPointFlip = Vector2.Zero;
+    private Vector2 shootPoint = Vector2.Zero;
 
-    public Gun(Texture2D sprite, Vector2 size, float fireCooldown, Bullet bullet, Vector2 shootPointNonFlip, Vector2 shootPointFlip) : base(sprite, Vector2.Zero, size, fireCooldown)
+    public Gun(Texture2D sprite, Vector2 size, float fireCooldown, Bullet bullet, Vector2 shootPoint) : base(sprite, Vector2.Zero, size, fireCooldown)
     {
         this.bullet = bullet;
-        this.shootPointNonFlip = shootPointNonFlip;
-        this.shootPointFlip = shootPointFlip;
+        this.shootPoint = shootPoint;
     }
 
     protected override void Fire()
@@ -27,7 +25,11 @@ public class Gun : Weapon
         var direction = mousePos - position;
         direction.Normalize();
 
+        // Getting shootpoint offset
+        var offset = shootPoint - size / 2;
+        offset = Vector2.Transform(offset, Matrix.CreateRotationZ(rotation));
+
         // Instantiating bullet
-        bullet.Instantiate(position + (flipY ? shootPointFlip : shootPointNonFlip), direction, rotation);
+        bullet.Instantiate(position + offset, direction, rotation);
     }
 }
