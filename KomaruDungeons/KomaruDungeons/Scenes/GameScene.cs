@@ -1,3 +1,4 @@
+using KomaruDungeons.KomaruDungeons.Enemies;
 using KomaruDungeons.KomaruDungeons.Game;
 using KomaruDungeons.KomaruDungeons.System;
 using KomaruDungeons.KomaruDungeons.Weapons;
@@ -12,7 +13,10 @@ public class GameScene : Scene
     public override void Load(ContentManager Content)
     {
         var startWeapon = new Glock(Content.Load<Texture2D>("Sprites/Weapon/Glock"), new Vector2(32, 32), Content.Load<Texture2D>("Sprites/Projectiles/GlockBullet"));
-        rectangles.Add(new Player(new Atlas(Content.Load<Texture2D>("Sprites/Player"), new Point(16, 16)), new Vector2(0, 0), new Vector2(64, 64), startWeapon));
+        var player = new Player(new Atlas(Content.Load<Texture2D>("Sprites/Player"), new Point(16, 16)), new Vector2(0, 0), new Vector2(64, 64), startWeapon);
+        rectangles.Add(player);
+
+        rectangles.Add(new Pug(new Atlas(Content.Load<Texture2D>("Sprites/Enemies/Pug"), new Point(16, 16)), new Vector2(400, 200), new Vector2(64, 64), player));
     }
 
     public override void Update(GameTime gameTime)

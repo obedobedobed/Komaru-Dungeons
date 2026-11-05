@@ -1,4 +1,3 @@
-using System;
 using KomaruDungeons.KomaruDungeons.System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -40,7 +39,6 @@ public class Bullet : SpriteRectangle
 
     private void Move(float delta)
     {
-        Console.WriteLine($"Speed: {speed}, Direction: {direction}, Position: {position}");
         var totalMove = direction * speed;
         position += totalMove;
     }
