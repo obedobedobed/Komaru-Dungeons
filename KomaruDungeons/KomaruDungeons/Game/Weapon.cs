@@ -18,6 +18,7 @@ public abstract class Weapon : SpriteRectangle
         this.fireCooldown = fireCooldown;
         fireCooldownNow = this.fireCooldown;
         rotationOrigin = new Vector2(sprite.Width / 2, sprite.Height / 2);
+        Tag = RectangleTag.Weapon;
     }
 
     public void SetPlayer(Player player)

@@ -18,6 +18,7 @@ public class SpriteRectangle
     protected bool flipY = false;
     protected float rotation = 0f;
     protected Vector2 rotationOrigin = Vector2.Zero;
+    public RectangleTag Tag { get; protected set; } = RectangleTag.None;
 
     public RectangleF Rect
     {

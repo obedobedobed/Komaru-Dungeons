@@ -45,6 +45,7 @@ public class Player : SpriteRectangle
     {
         weapons[currentWeapon] = startWeapon;
         weapons[currentWeapon].SetPlayer(this);
+        Tag = RectangleTag.Player;
     }
 
     public override void Update(GameTime gameTime)
