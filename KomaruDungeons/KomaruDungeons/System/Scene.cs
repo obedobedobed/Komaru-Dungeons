@@ -8,6 +8,7 @@ namespace KomaruDungeons.KomaruDungeons.System;
 public abstract class Scene
 {
     protected List<SpriteRectangle> rectangles = new List<SpriteRectangle>();
+    protected List<SpriteRectangle> uiRectangles = new List<SpriteRectangle>();
     protected List<SpriteRectangle> instRects = new List<SpriteRectangle>();
     protected List<SpriteRectangle> rmRects = new List<SpriteRectangle>();
 

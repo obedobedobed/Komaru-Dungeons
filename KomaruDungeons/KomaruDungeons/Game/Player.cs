@@ -1,3 +1,4 @@
+using System;
 using KomaruDungeons.KomaruDungeons.System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,6 +11,13 @@ public class Player : SpriteRectangle
     // health
     protected readonly int maxHealth;
     protected int health;
+    public float HealthBarAmount
+    {
+        get
+        {
+            return maxHealth > 0 ? (float)health / maxHealth : 0f;
+        }
+    }
 
     // Movement
     private const float SPEED = 100;
@@ -43,8 +51,10 @@ public class Player : SpriteRectangle
     // Misc
     private Vector2 lastPos;
 
-    public Player(Atlas atlas, Vector2 position, Vector2 size, Weapon startWeapon) : base(atlas, position, size)
+    public Player(Atlas atlas, Vector2 position, Vector2 size, Weapon startWeapon, int health) : base(atlas, position, size)
     {
+        maxHealth = health;
+        this.health = maxHealth;
         weapons[currentWeapon] = startWeapon;
         weapons[currentWeapon].SetPlayer(this);
         Tag = RectangleTag.Player;

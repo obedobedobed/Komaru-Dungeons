@@ -6,5 +6,6 @@ public enum RectangleTag
     Player,
     Enemy,
     Weapon,
-    Bullet
+    Bullet,
+    PlayerHealthBar
 }
