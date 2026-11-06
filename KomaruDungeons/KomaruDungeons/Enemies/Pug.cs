@@ -1,17 +1,37 @@
+using System;
 using KomaruDungeons.KomaruDungeons.Game;
 using KomaruDungeons.KomaruDungeons.System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace KomaruDungeons.KomaruDungeons.Enemies;
 
 public class Pug : Enemy
 {
+    // Animation
     private const int IDLE_ANIM = 0;
     private const int RUN_ANIM = 1;
     private const int DEAD_ANIM = 2;
     private const int ANIMS_COUNT = 3;
 
-    public Pug(Atlas atlas, Vector2 position, Vector2 size, Player player) : base(atlas, position, size, 70f, player, 0.2f, 20)
+    // Attack
+    private const float ATTACK_START_RADIUS = 100f;
+    private const float ATTACK_BITE_RADIUS = 40f;
+    private const float ATTACK_COOLDOWN = 2f;
+    private float attackCooldown = ATTACK_COOLDOWN;
+    private const float ATTACK_TIME = 0.5f;
+    private float attackTime = ATTACK_TIME;
+    private bool attacking = false;
+    private int damage = 5;
+    private Texture2D biteTexture;
+    private bool showBite;
+    private Vector2 bitePos;
+    private const float BITE_WIDTH = 28f;
+    private readonly Vector2 biteRelativePos;
+    private const float BITE_SHOW_TIME = 0.3f;
+    private float biteShowTime = BITE_SHOW_TIME;
+
+    public Pug(Atlas atlas, Vector2 position, Vector2 size, Player player, Texture2D biteTexture) : base(atlas, position, size, 70f, player, 0.2f, 20)
     {
         anims = new int[3][];
         for (int i = 0; i < anims.Length; i++)
@@ -29,9 +49,86 @@ public class Pug : Enemy
                     break;
             }
         }
+
+        this.biteTexture = biteTexture;
+        biteRelativePos = new Vector2(size.X / 2 - BITE_WIDTH / 2, 20f);
     }
 
     public override void Update(GameTime gameTime)
+    {
+        base.Update(gameTime);
+
+        float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+        attackCooldown -= delta;
+        biteShowTime -= delta;
+
+        if (attackCooldown <= 0 && (player.Rect.Centre - Rect.Centre).Length() <= ATTACK_START_RADIUS && !attacking)
+        {
+            attacking = true;
+            speedMultiplier = 1.7f;
+        }
+
+        if (attacking)
+        {
+            UpdateAttack();
+        }
+
+        if (showBite)
+        {
+            UpdateBite();
+        }
+    }
+
+    // Attack
+    private void UpdateAttack()
+    {
+        if (attackTime <= 0)
+        {
+            StopAttack();
+        }
+        else if ((player.Rect.position - position).Length() <= ATTACK_BITE_RADIUS)
+        {
+            player.TakeDamage(damage);
+            StartBite();
+            StopAttack();
+        }
+    }
+
+    private void StopAttack()
+    {
+        attacking = false;
+        attackCooldown = ATTACK_COOLDOWN;
+        attackTime = ATTACK_TIME;
+
+        speedMultiplier = 1f;
+    }
+
+    // Bite
+    private void StartBite()
+    {
+        showBite = true;
+        biteShowTime = BITE_SHOW_TIME;
+        bitePos = position + biteRelativePos;
+    }
+
+    private void UpdateBite()
+    {
+        // Console.WriteLine($"Bite time: {biteShowTime}");
+
+        if (biteShowTime <= 0)
+        {
+            showBite = false;
+        }
+    }
+
+    protected override void CalculateDirection(float delta)
+    {
+        direction = player.Rect.position - position;
+        direction.Normalize();
+    }
+
+    protected override void Animate(float delta)
     {
         if (player.Rect.position.X >= position.X)
         {
@@ -42,13 +139,7 @@ public class Pug : Enemy
             flipX = true;
         }
 
-        base.Update(gameTime);
-    }
-
-    protected override void CalculateDirection(float delta)
-    {
-        direction = player.Rect.position - position;
-        direction.Normalize();
+        base.Animate(delta);
     }
 
     protected override int SetAnim()
@@ -69,6 +160,16 @@ public class Pug : Enemy
         else
         {
             return -1; // None
+        }
+    }
+
+    public override void Draw(SpriteBatch spriteBatch)
+    {
+        base.Draw(spriteBatch);
+        
+        if (showBite)
+        {
+            spriteBatch.Draw(biteTexture, new Rectangle(bitePos.ToPoint(), new Point(28, 28)), new Color(Color.White, biteShowTime / BITE_SHOW_TIME));
         }
     }
 }

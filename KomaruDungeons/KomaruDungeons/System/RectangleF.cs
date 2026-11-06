@@ -16,6 +16,14 @@ public class RectangleF
         }
     }
 
+    public Vector2 Centre
+    {
+        get
+        {
+            return position + size / 2;
+        }
+    }
+
     public RectangleF(Vector2 position, Vector2 size)
     {
         this.position = position;

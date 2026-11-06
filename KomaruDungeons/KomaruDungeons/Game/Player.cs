@@ -7,10 +7,12 @@ namespace KomaruDungeons.KomaruDungeons.Game;
 
 public class Player : SpriteRectangle
 {
-    // Values
-    private const float SPEED = 100;
+    // health
+    protected readonly int maxHealth;
+    protected int health;
 
     // Movement
+    private const float SPEED = 100;
     private VerticalDirection vDirection = VerticalDirection.None;
     private HorizontalDirection hDirection = HorizontalDirection.None;
 
@@ -173,5 +175,14 @@ public class Player : SpriteRectangle
     {
         base.Draw(spriteBatch);
         weapons[currentWeapon].Draw(spriteBatch);
+    }
+
+    public virtual void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            
+        }
     }
 }

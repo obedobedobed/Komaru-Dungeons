@@ -16,7 +16,14 @@ public class GameScene : Scene
         var player = new Player(new Atlas(Content.Load<Texture2D>("Sprites/Player"), new Point(16, 16)), new Vector2(0, 0), new Vector2(64, 64), startWeapon);
         rectangles.Add(player);
 
-        rectangles.Add(new Pug(new Atlas(Content.Load<Texture2D>("Sprites/Enemies/Pug"), new Point(16, 16)), new Vector2(400, 200), new Vector2(64, 64), player));
+        rectangles.Add
+        (
+            new Pug
+            (
+                new Atlas(Content.Load<Texture2D>("Sprites/Enemies/Pug"), new Point(16, 16)), new Vector2(400, 200),
+                new Vector2(64, 64), player, Content.Load<Texture2D>("Sprites/Weapon/Bite")
+            )
+        );
     }
 
     public override void Update(GameTime gameTime)
@@ -50,7 +57,7 @@ public class GameScene : Scene
 
     public override void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+        spriteBatch.Begin(samplerState: SamplerState.PointClamp, blendState: BlendState.NonPremultiplied);
 
         // Drawing rects
         foreach (var rect in rectangles)
