@@ -96,10 +96,10 @@ public class Player : SpriteRectangle
 
     private void Move(float delta)
     {
-        var totalMovement = new Vector2(SPEED * delta);
+        var dir = Vector2.Zero;
 
         // Horizontal
-        totalMovement.X *= hDirection switch
+        dir.X = hDirection switch
         {
             HorizontalDirection.Right =>  1,
             HorizontalDirection.Left  => -1,
@@ -107,13 +107,19 @@ public class Player : SpriteRectangle
         };
 
         // Vertical
-        totalMovement.Y *= vDirection switch
+        dir.Y = vDirection switch
         {
             VerticalDirection.Top   => -1,
             VerticalDirection.Down  =>  1,
             _                       =>  0
         };
 
+        if (dir != Vector2.Zero)
+        {
+            dir.Normalize();
+        }
+
+        var totalMovement = dir * SPEED * delta;
         position += totalMovement;
     }
 

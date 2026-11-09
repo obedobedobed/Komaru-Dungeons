@@ -48,13 +48,14 @@ public class Bullet : SpriteRectangle
             {
                 (rect as Enemy).TakeDamage(damage);
                 SceneManager.RemoveRect(this);
+                break;
             }
         }
     }
 
     private void Move(float delta)
     {
-        var totalMove = direction * speed;
+        var totalMove = direction * speed * delta;
         position += totalMove;
     }
 

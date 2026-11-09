@@ -61,7 +61,6 @@ public class Pug : Enemy
         float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
         attackCooldown -= delta;
-        biteShowTime -= delta;
 
         if (attackCooldown <= 0 && (player.Rect.Centre - Rect.Centre).Length() <= ATTACK_START_RADIUS && !attacking)
         {
@@ -71,18 +70,20 @@ public class Pug : Enemy
 
         if (attacking)
         {
-            UpdateAttack();
+            UpdateAttack(delta);
         }
 
         if (showBite)
         {
-            UpdateBite();
+            UpdateBite(delta);
         }
     }
 
     // Attack
-    private void UpdateAttack()
+    private void UpdateAttack(float delta)
     {
+        attackTime -= delta;
+
         if (attackTime <= 0)
         {
             StopAttack();
@@ -112,9 +113,9 @@ public class Pug : Enemy
         bitePos = position + biteRelativePos;
     }
 
-    private void UpdateBite()
+    private void UpdateBite(float delta)
     {
-        // Console.WriteLine($"Bite time: {biteShowTime}");
+        biteShowTime -= delta;
 
         if (biteShowTime <= 0)
         {
