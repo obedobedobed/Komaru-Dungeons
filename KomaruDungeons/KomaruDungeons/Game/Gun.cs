@@ -1,16 +1,20 @@
 using System;
+using KomaruDungeons.KomaruDungeons.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace KomaruDungeons.KomaruDungeons.Game;
 
-public class Gun : Weapon
+public class Gun : Weapon, IHasAmmo
 {
     private Bullet bullet;
-    public int Ammo { get; protected set; }
-    public int AmmoSets { get; protected set; }
-    public int AmmoSetAmmo { get; protected set; }
+    public int ammo;
+    public int Ammo { get => ammo; }
+    public int ammoSets;
+    public int AmmoSets { get => ammoSets; }
+    public int ammoSetAmmo;
+    public int AmmoSetAmmo { get => ammoSetAmmo; }
     private Vector2 shootPoint = Vector2.Zero;
 
     public Gun(Texture2D sprite, Vector2 size, float fireCooldown, Bullet bullet, Vector2 shootPoint, int ammoSets, int ammoSetAmmo) : base(sprite, Vector2.Zero, size, fireCooldown)
@@ -18,9 +22,9 @@ public class Gun : Weapon
         this.bullet = bullet;
         this.shootPoint = shootPoint;
 
-        AmmoSets = ammoSets;
-        AmmoSetAmmo = ammoSetAmmo;
-        Ammo = ammoSetAmmo;
+        this.ammoSets = ammoSets;
+        this.ammoSetAmmo = ammoSetAmmo;
+        ammo = ammoSetAmmo;
     }
 
     protected override void GetInput()
@@ -37,7 +41,7 @@ public class Gun : Weapon
 
     protected override void Fire()
     {
-        if (Ammo <= 0)
+        if (ammo <= 0)
         {
             return;
         }
@@ -58,15 +62,15 @@ public class Gun : Weapon
         bullet.Instantiate(position + offset, direction, rotation);
 
         // Taking ammo
-        Ammo--;
+        ammo--;
     }
 
     protected virtual void Recharge()
     {
-        if (AmmoSets > 1 && Ammo < AmmoSetAmmo)
+        if (ammoSets > 1 && ammo < ammoSetAmmo)
         {
-            Ammo = AmmoSetAmmo;
-            AmmoSets--;
+            ammo = ammoSetAmmo;
+            ammoSets--;
         }
     }
 }

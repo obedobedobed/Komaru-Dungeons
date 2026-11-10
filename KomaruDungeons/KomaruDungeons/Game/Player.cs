@@ -1,4 +1,4 @@
-using System;
+using KomaruDungeons.KomaruDungeons.Interfaces;
 using KomaruDungeons.KomaruDungeons.System;
 using KomaruDungeons.KomaruDungeons.System.UI;
 using Microsoft.Xna.Framework;
@@ -29,24 +29,24 @@ public class Player : SpriteRectangle
     private Weapon[] weapons = new Weapon[2];
     private int currentWeapon = 0;
 
-    public float AmmoBarAmount // TODO: IHasAmmo interface
+    public float AmmoBarAmount
     {
         get
         {
-            if (weapons[currentWeapon] is Gun gun)
+            if (weapons[currentWeapon] is IHasAmmo hasAmmo)
             {
-                return gun.Ammo > 0 ? (float)gun.Ammo / gun.AmmoSetAmmo : 0f;
+                return hasAmmo.Ammo > 0 ? (float)hasAmmo.Ammo / hasAmmo.AmmoSetAmmo : 0f;
             }
 
             return 0f;
         }
     }
 
-    public bool AmmoWeapon // TODO: IHasAmmo interface
+    public bool AmmoWeapon
     {
         get
         {
-            return weapons[currentWeapon] is Gun;
+            return weapons[currentWeapon] is IHasAmmo;
         }
     }
 
@@ -223,7 +223,7 @@ public class Player : SpriteRectangle
         weapons[currentWeapon].Draw(spriteBatch);
     }
 
-    public virtual void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         health -= damage;
         if (health <= 0)
