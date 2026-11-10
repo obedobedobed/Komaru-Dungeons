@@ -15,6 +15,7 @@ public class GameScene : Scene
 
     private Bar healthBar;
     private Bar ammoBar;
+    private WeaponSlot weaponSlot;
 
     public override void Load(ContentManager Content)
     {
@@ -44,6 +45,12 @@ public class GameScene : Scene
         var ammoBarLine = new ColorRectangle(new Color(255, 255, 0), new Vector2(20, 80), new Vector2(200, 40));
         ammoBar = new Bar(ammoBarBackground, ammoBarLine);
         uiElements.Add(ammoBar);
+
+        // Weapon Slot
+        var weapSlot = new SpriteRectangle(Content.Load<Texture2D>("Sprites/UI/InventorySlot"), Game1.RightDownCorner - new Vector2(20 + 64, 20 + 64), new Vector2(64, 64));
+        var weapData = player.WeapSlotData;
+        weaponSlot = new WeaponSlot(weapSlot, weapData, player);
+        uiElements.Add(weaponSlot);
     }
 
     public override void Update(GameTime gameTime)

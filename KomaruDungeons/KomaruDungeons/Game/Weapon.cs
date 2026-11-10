@@ -1,5 +1,6 @@
 using System;
 using KomaruDungeons.KomaruDungeons.System;
+using KomaruDungeons.KomaruDungeons.System.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -12,6 +13,14 @@ public abstract class Weapon : SpriteRectangle
     protected float fireCooldownNow;
     protected Player player = null;
     public bool FlippedY { get { return flipY; } }
+
+    public WeaponSlotData SlotData
+    {
+        get
+        {
+            return new WeaponSlotData(sprite, size);
+        }
+    }
 
     protected MouseState lastMouse;
 

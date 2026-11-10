@@ -17,13 +17,22 @@ public class Game1 : Game
     private const int SCENES_COUNT = 1;
 
     // Misc
+    private static Game1 instance;
     public static Texture2D Pixel { get; private set; }
+    public static Vector2 RightDownCorner
+    {
+        get
+        {
+            return new Vector2(instance.graphics.PreferredBackBufferWidth, instance.graphics.PreferredBackBufferHeight);
+        }
+    }
 
     public Game1()
     {
         graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
+        instance = this;
     }
 
     protected override void Initialize()

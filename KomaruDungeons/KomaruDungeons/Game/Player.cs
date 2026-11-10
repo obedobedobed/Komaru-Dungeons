@@ -1,5 +1,6 @@
 using System;
 using KomaruDungeons.KomaruDungeons.System;
+using KomaruDungeons.KomaruDungeons.System.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -46,6 +47,14 @@ public class Player : SpriteRectangle
         get
         {
             return weapons[currentWeapon] is Gun;
+        }
+    }
+
+    public WeaponSlotData WeapSlotData
+    {
+        get
+        {
+            return weapons[currentWeapon].SlotData;
         }
     }
 
