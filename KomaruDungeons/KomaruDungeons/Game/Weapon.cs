@@ -10,8 +10,10 @@ public abstract class Weapon : SpriteRectangle
 {
     protected float fireCooldown;
     protected float fireCooldownNow;
-    private Player player = null;
+    protected Player player = null;
     public bool FlippedY { get { return flipY; } }
+
+    protected MouseState lastMouse;
 
     public Weapon(Texture2D sprite, Vector2 position, Vector2 size, float fireCooldown) : base(sprite, position, size)
     {
@@ -66,6 +68,8 @@ public abstract class Weapon : SpriteRectangle
         {
             Fire();
         }
+
+        lastMouse = mouse;
     }
 
     protected virtual void Fire()

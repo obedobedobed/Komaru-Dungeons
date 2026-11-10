@@ -38,6 +38,12 @@ public class GameScene : Scene
         var healthBarLine = new ColorRectangle(new Color(60, 255, 60), new Vector2(20, 20), new Vector2(200, 40));
         healthBar = new Bar(healthBarBackground, healthBarLine);
         uiElements.Add(healthBar);
+
+        // Player Ammo Bar
+        var ammoBarBackground = new ColorRectangle(new Color(100, 100, 0), new Vector2(20, 80), new Vector2(200, 40));
+        var ammoBarLine = new ColorRectangle(new Color(255, 255, 0), new Vector2(20, 80), new Vector2(200, 40));
+        ammoBar = new Bar(ammoBarBackground, ammoBarLine);
+        uiElements.Add(ammoBar);
     }
 
     public override void Update(GameTime gameTime)
@@ -76,6 +82,7 @@ public class GameScene : Scene
 
         // Updating specific
         healthBar.UpdateAmount(player.HealthBarAmount);
+        ammoBar.UpdateAmount(player.AmmoBarAmount);
     }
 
     public override void Draw(SpriteBatch spriteBatch)
@@ -97,6 +104,11 @@ public class GameScene : Scene
         // Drawing ui rects
         foreach (var elem in uiElements)
         {
+            if (!player.AmmoWeapon && elem.Equals(ammoBar))
+            {
+                return;
+            }
+            
             elem.Draw(spriteBatch);
         }
 

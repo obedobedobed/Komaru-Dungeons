@@ -8,7 +8,7 @@ namespace KomaruDungeons.KomaruDungeons.Game;
 
 public class Player : SpriteRectangle
 {
-    // health
+    // Health
     protected readonly int maxHealth;
     protected int health;
     public float HealthBarAmount
@@ -27,6 +27,27 @@ public class Player : SpriteRectangle
     // Weapon
     private Weapon[] weapons = new Weapon[2];
     private int currentWeapon = 0;
+
+    public float AmmoBarAmount // TODO: IHasAmmo interface
+    {
+        get
+        {
+            if (weapons[currentWeapon] is Gun gun)
+            {
+                return gun.Ammo > 0 ? (float)gun.Ammo / gun.AmmoSetAmmo : 0f;
+            }
+
+            return 0f;
+        }
+    }
+
+    public bool AmmoWeapon // TODO: IHasAmmo interface
+    {
+        get
+        {
+            return weapons[currentWeapon] is Gun;
+        }
+    }
 
     // Animation
     private const float FRAME_TIME = 0.2f;
