@@ -13,6 +13,9 @@ public class GameScene : Scene
 {
     private Player player;
 
+    private Bar healthBar;
+    private Bar ammoBar;
+
     public override void Load(ContentManager Content)
     {
         // Rects
@@ -30,7 +33,11 @@ public class GameScene : Scene
         );
 
         // UI
-        uiRectangles.Add(new Bar(new Vector2(20, 20), new Vector2(200, 40), new Color(0, 100, 0), new Color(60, 255, 60)));
+        // Player Health Bar
+        var healthBarBackground = new ColorRectangle(new Color(0, 100, 0), new Vector2(20, 20), new Vector2(200, 40));
+        var healthBarLine = new ColorRectangle(new Color(60, 255, 60), new Vector2(20, 20), new Vector2(200, 40));
+        healthBar = new Bar(healthBarBackground, healthBarLine);
+        uiElements.Add(healthBar);
     }
 
     public override void Update(GameTime gameTime)
@@ -43,6 +50,12 @@ public class GameScene : Scene
             {
                 (rect as Bullet).CheckCollisions(rectangles.ToArray());
             }
+        }
+
+        // Updating UI
+        foreach (var elem in uiElements)
+        {
+            elem.Update(gameTime);
         }
 
         // Adding instantiated rects to rects array
@@ -60,6 +73,9 @@ public class GameScene : Scene
         }
 
         rmRects.Clear();
+
+        // Updating specific
+        healthBar.UpdateAmount(player.HealthBarAmount);
     }
 
     public override void Draw(SpriteBatch spriteBatch)
@@ -79,16 +95,9 @@ public class GameScene : Scene
         spriteBatch.Begin(samplerState: SamplerState.PointClamp, blendState: BlendState.NonPremultiplied);
 
         // Drawing ui rects
-        foreach (var rect in uiRectangles)
+        foreach (var elem in uiElements)
         {
-            if (rect.Tag == RectangleTag.PlayerHealthBar)
-            {
-                (rect as Bar).Draw(spriteBatch, player.HealthBarAmount);
-            }
-            else
-            {
-                rect.Draw(spriteBatch);
-            }
+            elem.Draw(spriteBatch);
         }
 
         spriteBatch.End();

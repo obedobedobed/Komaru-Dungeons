@@ -1,35 +1,25 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace KomaruDungeons.KomaruDungeons.System.UI;
 
-public class Bar : SpriteRectangle
+public class Bar : UIElement
 {
-    private Color bgColor;
-    private Color lineColor;
+    private float amount;
 
-    public Bar(Vector2 position, Vector2 size, Color bgColor, Color lineColor) : base(Game1.Pixel, position, size)
+    public Bar(ColorRectangle backgroundRect, ColorRectangle lineRect, float amount = 1f, bool enabled = true) : base([backgroundRect, lineRect], enabled)
     {
-        this.bgColor = bgColor;
-        this.lineColor = lineColor;
-        Tag = RectangleTag.PlayerHealthBar;
+        this.amount = amount;
+    }
+
+    public void UpdateAmount(float amount)
+    {
+        this.amount = amount;
     }
 
     public override void Draw(SpriteBatch spriteBatch)
     {
-        throw new Exception("Bar: Use overload with AMOUNT");
-    }
-
-    public void Draw(SpriteBatch spriteBatch, float amount)
-    {
-        spriteBatch.Draw(sprite, Rect.ToRectangle, bgColor);
-
-        var lineRect = new RectangleF
-        (
-            position,
-            new Vector2(size.X * amount, size.Y)
-        );
-        spriteBatch.Draw(sprite, lineRect.ToRectangle, lineColor);
+        rects[0].Draw(spriteBatch);
+        (rects[1] as ColorRectangle).DrawMod(spriteBatch, widthMod: amount);
     }
 }

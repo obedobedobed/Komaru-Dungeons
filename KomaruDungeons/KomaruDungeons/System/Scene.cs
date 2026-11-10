@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using KomaruDungeons.KomaruDungeons.System.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,7 +9,7 @@ namespace KomaruDungeons.KomaruDungeons.System;
 public abstract class Scene
 {
     protected List<SpriteRectangle> rectangles = new List<SpriteRectangle>();
-    protected List<SpriteRectangle> uiRectangles = new List<SpriteRectangle>();
+    protected List<UIElement> uiElements = new List<UIElement>();
     protected List<SpriteRectangle> instRects = new List<SpriteRectangle>();
     protected List<SpriteRectangle> rmRects = new List<SpriteRectangle>();
 
