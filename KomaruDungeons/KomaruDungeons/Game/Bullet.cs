@@ -1,10 +1,11 @@
+using KomaruDungeons.KomaruDungeons.Interfaces;
 using KomaruDungeons.KomaruDungeons.System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace KomaruDungeons.KomaruDungeons.Game;
 
-public class Bullet : SpriteRectangle
+public class Bullet : SpriteRectangle, ICheckingCollisions
 {
     private readonly int damage;
     private readonly float speed;

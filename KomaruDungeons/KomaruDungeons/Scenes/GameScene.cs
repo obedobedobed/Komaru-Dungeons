@@ -1,5 +1,6 @@
 using KomaruDungeons.KomaruDungeons.Enemies;
 using KomaruDungeons.KomaruDungeons.Game;
+using KomaruDungeons.KomaruDungeons.Interfaces;
 using KomaruDungeons.KomaruDungeons.System;
 using KomaruDungeons.KomaruDungeons.System.UI;
 using KomaruDungeons.KomaruDungeons.Weapons;
@@ -59,9 +60,10 @@ public class GameScene : Scene
         foreach (var rect in rectangles)
         {
             rect.Update(gameTime);
-            if (rect.Tag == RectangleTag.Bullet)
+            
+            if (rect is ICheckingCollisions colCheck)
             {
-                (rect as Bullet).CheckCollisions(rectangles.ToArray());
+                colCheck.CheckCollisions(rectangles.ToArray());
             }
         }
 
