@@ -15,6 +15,7 @@ public abstract class Scene
 
     public abstract void Load(ContentManager content);
     public abstract void Update(GameTime gameTime);
+    public abstract void ManageRectangles(GameTime gameTime);
     public abstract void Draw(SpriteBatch spriteBatch);
 
     public virtual void InstantiateRect(SpriteRectangle rect)

@@ -56,6 +56,16 @@ public class GameScene : Scene
 
     public override void Update(GameTime gameTime)
     {
+        // Managing rectangles
+        ManageRectangles(gameTime);
+
+        // Updating specific
+        healthBar.UpdateAmount(player.HealthBarAmount);
+        ammoBar.UpdateAmount(player.AmmoBarAmount);
+    }
+
+    public override void ManageRectangles(GameTime gameTime)
+    {
         // Updating rects
         foreach (var rect in rectangles)
         {
@@ -88,10 +98,6 @@ public class GameScene : Scene
         }
 
         rmRects.Clear();
-
-        // Updating specific
-        healthBar.UpdateAmount(player.HealthBarAmount);
-        ammoBar.UpdateAmount(player.AmmoBarAmount);
     }
 
     public override void Draw(SpriteBatch spriteBatch)

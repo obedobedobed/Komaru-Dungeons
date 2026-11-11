@@ -8,7 +8,7 @@ namespace KomaruDungeons.KomaruDungeons.Game;
 
 public class Gun : Weapon, IHasAmmo
 {
-    private Bullet bullet;
+    private BulletsGenerator bulletGenerator;
     public int ammo;
     public int Ammo { get => ammo; }
     public int ammoSets;
@@ -17,9 +17,10 @@ public class Gun : Weapon, IHasAmmo
     public int AmmoSetAmmo { get => ammoSetAmmo; }
     private Vector2 shootPoint = Vector2.Zero;
 
-    public Gun(Texture2D sprite, Vector2 size, float fireCooldown, Bullet bullet, Vector2 shootPoint, int ammoSets, int ammoSetAmmo) : base(sprite, Vector2.Zero, size, fireCooldown)
+    public Gun(Texture2D sprite, Vector2 size, float fireCooldown, BulletsGenerator bulletGenerator, Vector2 shootPoint, int ammoSets, int ammoSetAmmo)
+    : base(sprite, Vector2.Zero, size, fireCooldown)
     {
-        this.bullet = bullet;
+        this.bulletGenerator = bulletGenerator;
         this.shootPoint = shootPoint;
 
         this.ammoSets = ammoSets;
@@ -59,7 +60,7 @@ public class Gun : Weapon, IHasAmmo
         offset = Vector2.Transform(offset, Matrix.CreateRotationZ(rotation));
 
         // Instantiating bullet
-        bullet.Instantiate(position + offset, direction, rotation);
+        bulletGenerator.Instantiate(position + offset, direction, rotation);
 
         // Taking ammo
         ammo--;
