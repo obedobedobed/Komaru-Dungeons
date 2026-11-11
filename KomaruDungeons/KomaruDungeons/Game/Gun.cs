@@ -8,24 +8,55 @@ namespace KomaruDungeons.KomaruDungeons.Game;
 
 public class Gun : Weapon, IHasAmmo
 {
-    private BulletsGenerator bulletGenerator;
+    // Bullets
+    private readonly BulletsGenerator bulletGenerator;
+
+    // Ammo
     public int ammo;
     public int Ammo { get => ammo; }
-    public int ammoSets;
-    public int AmmoSets { get => ammoSets; }
-    public int ammoSetAmmo;
-    public int AmmoSetAmmo { get => ammoSetAmmo; }
+    public int ammoTotal;
+    public int AmmoTotal { get => ammoTotal; }
+    public int defaultAmmoTotal;
+    public int DefaultAmmoTotal { get => defaultAmmoTotal; }
+    public int ammoInSet;
+    public int AmmoInSet { get => ammoInSet; }
+
+    // Recharge
+    private readonly float rechargeTime;
+    public float RechargeTime { get => rechargeTime; }
+    private float rechargeTimeNow;
+    public float RechargeTimeNow { get => rechargeTimeNow; }
+    private bool rechargingNow = false;
+    public bool RechargingNow { get => rechargingNow; }
+
+    // Misc
     private Vector2 shootPoint = Vector2.Zero;
 
-    public Gun(Texture2D sprite, Vector2 size, float fireCooldown, BulletsGenerator bulletGenerator, Vector2 shootPoint, int ammoSets, int ammoSetAmmo)
+    public Gun(Texture2D sprite, Vector2 size, float fireCooldown, BulletsGenerator bulletGenerator, Vector2 shootPoint, int ammoTotal, int ammoInSet, float rechargeTime)
     : base(sprite, Vector2.Zero, size, fireCooldown)
     {
         this.bulletGenerator = bulletGenerator;
         this.shootPoint = shootPoint;
 
-        this.ammoSets = ammoSets;
-        this.ammoSetAmmo = ammoSetAmmo;
-        ammo = ammoSetAmmo;
+        this.ammoInSet = ammoInSet;
+        this.ammoTotal = ammoTotal;
+        defaultAmmoTotal = this.ammoTotal;
+        ammo = this.ammoInSet;
+
+        this.rechargeTime = rechargeTime;
+        rechargeTimeNow = this.rechargeTime;
+    }
+
+    public override void Update(GameTime gameTime)
+    {
+        base.Update(gameTime);
+
+        float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+        if (rechargingNow)
+        {
+            WaitRecharge(delta);
+        }
     }
 
     protected override void GetInput()
@@ -34,7 +65,7 @@ public class Gun : Weapon, IHasAmmo
 
         if (mouse.RightButton == ButtonState.Pressed && lastMouse.RightButton != ButtonState.Pressed)
         {
-            Recharge();
+            StartRecharge();
         }
 
         base.GetInput();
@@ -68,10 +99,29 @@ public class Gun : Weapon, IHasAmmo
 
     protected virtual void Recharge()
     {
-        if (ammoSets > 1 && ammo < ammoSetAmmo)
+        int neededAmmo = ammoInSet - ammo;
+        ammo += neededAmmo;
+        ammoTotal -= neededAmmo;
+        rechargeTimeNow = rechargeTime;
+        rechargingNow = false;
+    }
+
+    protected virtual void StartRecharge()
+    {
+        if (ammoTotal > 0)
         {
-            ammo = ammoSetAmmo;
-            ammoSets--;
+            rechargingNow = true;
+        }
+    }
+
+    protected virtual void WaitRecharge(float delta)
+    {
+        rechargeTimeNow -= delta;
+        Console.WriteLine(rechargeTimeNow);
+
+        if (rechargeTimeNow <= 0)
+        {
+            Recharge();
         }
     }
 }

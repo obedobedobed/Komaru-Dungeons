@@ -8,7 +8,7 @@ namespace KomaruDungeons.KomaruDungeons.Weapons;
 public class Glock : Gun
 {
     public Glock(Texture2D sprite, Vector2 size, Texture2D bulletSprite)
-    : base(sprite, size, 0.5f, new BulletsGenerator(bulletSprite, new Vector2(24, 24), 4, 350f, 8f), new Vector2(16, 2.5f), 5, 10)
+    : base(sprite, size, 0.5f, new BulletsGenerator(bulletSprite, new Vector2(24, 24), 4, 350f, 8f), new Vector2(16, 2.5f), 80, 6, 1f)
     {
         
     }

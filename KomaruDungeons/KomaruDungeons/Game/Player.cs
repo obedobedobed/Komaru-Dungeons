@@ -28,6 +28,8 @@ public class Player : SpriteRectangle
     // Weapon
     private Weapon[] weapons = new Weapon[2];
     private int currentWeapon = 0;
+    private Bar rechargeBar;
+    private readonly Vector2 rechargeBarRelativePos;
 
     public float AmmoBarAmount
     {
@@ -35,7 +37,20 @@ public class Player : SpriteRectangle
         {
             if (weapons[currentWeapon] is IHasAmmo hasAmmo)
             {
-                return hasAmmo.Ammo > 0 ? (float)hasAmmo.Ammo / hasAmmo.AmmoSetAmmo : 0f;
+                return hasAmmo.Ammo > 0 ? (float)hasAmmo.Ammo / hasAmmo.AmmoInSet : 0f;
+            }
+
+            return 0f;
+        }
+    }
+
+    public float TotalAmmoBarAmount
+    {
+        get
+        {
+            if (weapons[currentWeapon] is IHasAmmo hasAmmo)
+            {
+                return hasAmmo.DefaultAmmoTotal > 0 ? (float)hasAmmo.AmmoTotal / hasAmmo.DefaultAmmoTotal : 0f;
             }
 
             return 0f;
@@ -88,6 +103,14 @@ public class Player : SpriteRectangle
         weapons[currentWeapon] = startWeapon;
         weapons[currentWeapon].SetPlayer(this);
         Tag = RectangleTag.Player;
+
+        rechargeBarRelativePos = new Vector2(12, -10);
+        var rechargeBarSize = new Vector2(this.size.X - 24, 5);
+        rechargeBar = new Bar
+        (
+            new ColorRectangle(new Color(150, 150, 150), position + rechargeBarRelativePos, rechargeBarSize),
+            new ColorRectangle(new Color(255, 255, 255), position + rechargeBarRelativePos, rechargeBarSize)
+        );
     }
 
     public override void Update(GameTime gameTime)
@@ -99,6 +122,12 @@ public class Player : SpriteRectangle
         Move(delta);
         Animate(delta);
         weapons[currentWeapon].Update(gameTime);
+
+        if (weapons[currentWeapon] is IHasAmmo hasAmmo && hasAmmo.RechargingNow)
+        {
+            rechargeBar.UpdateAmount(hasAmmo.RechargeTimeNow / hasAmmo.RechargeTime);
+            rechargeBar.Follow(this, rechargeBarRelativePos);
+        }
     }
     
     private void GetInput()
@@ -221,6 +250,11 @@ public class Player : SpriteRectangle
     {
         base.Draw(spriteBatch);
         weapons[currentWeapon].Draw(spriteBatch);
+
+        if (weapons[currentWeapon] is IHasAmmo hasAmmo && hasAmmo.RechargingNow)
+        {
+            rechargeBar.Draw(spriteBatch);
+        }
     }
 
     public void TakeDamage(int damage)

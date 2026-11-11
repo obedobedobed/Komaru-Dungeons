@@ -42,4 +42,12 @@ public class UIElement
             rect.Draw(spriteBatch);
         }
     }
+
+    public virtual void Follow(SpriteRectangle followRect, Vector2 relativePos = new Vector2())
+    {
+        foreach (var rect in rects)
+        {
+            rect.Follow(followRect, relativePos);
+        }
+    }
 }

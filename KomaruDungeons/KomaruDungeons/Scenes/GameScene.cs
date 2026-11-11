@@ -16,6 +16,7 @@ public class GameScene : Scene
 
     private Bar healthBar;
     private Bar ammoBar;
+    private Bar totalAmmoBar;
     private WeaponSlot weaponSlot;
 
     public override void Load(ContentManager Content)
@@ -47,6 +48,12 @@ public class GameScene : Scene
         ammoBar = new Bar(ammoBarBackground, ammoBarLine);
         uiElements.Add(ammoBar);
 
+        // Player Total Ammo Bar
+        var totalAmmoBarBackground = new ColorRectangle(new Color(100, 100, 0), new Vector2(20, 125), new Vector2(200, 10));
+        var totalAmmoBarLine = new ColorRectangle(new Color(230, 230, 0), new Vector2(20, 125), new Vector2(200, 10));
+        totalAmmoBar = new Bar(totalAmmoBarBackground, totalAmmoBarLine);
+        uiElements.Add(totalAmmoBar);
+
         // Weapon Slot
         var weapSlot = new SpriteRectangle(Content.Load<Texture2D>("Sprites/UI/InventorySlot"), Game1.RightDownCorner - new Vector2(20 + 64, 20 + 64), new Vector2(64, 64));
         var weapData = player.WeapSlotData;
@@ -62,6 +69,7 @@ public class GameScene : Scene
         // Updating specific
         healthBar.UpdateAmount(player.HealthBarAmount);
         ammoBar.UpdateAmount(player.AmmoBarAmount);
+        totalAmmoBar.UpdateAmount(player.TotalAmmoBarAmount);
     }
 
     public override void ManageRectangles(GameTime gameTime)
@@ -119,7 +127,7 @@ public class GameScene : Scene
         // Drawing ui rects
         foreach (var elem in uiElements)
         {
-            if (!player.AmmoWeapon && elem.Equals(ammoBar))
+            if (!player.AmmoWeapon && (elem.Equals(ammoBar) || elem.Equals(totalAmmoBar)))
             {
                 return;
             }

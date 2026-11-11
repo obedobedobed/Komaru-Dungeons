@@ -72,4 +72,9 @@ public class SpriteRectangle
             break;
         }
     }
+
+    public virtual void Follow(SpriteRectangle rect, Vector2 relativePos = new Vector2())
+    {
+        position = rect.Rect.position + relativePos;
+    }
 }
