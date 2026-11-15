@@ -65,7 +65,7 @@ public class Player : SpriteRectangle
         }
     }
 
-    public WeaponSlotData WeapSlotData
+    public RectangleData WeapSlotData
     {
         get
         {

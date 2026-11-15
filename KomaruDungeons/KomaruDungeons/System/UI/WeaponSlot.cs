@@ -7,14 +7,14 @@ public class WeaponSlot : UIElement
 {
     private Player player;
 
-    public WeaponSlot(SpriteRectangle slot, WeaponSlotData weapData, Player player, bool enabled = true)
-    : base([slot, weapData.GetRect(slot.Rect.Centre)], enabled)
+    public WeaponSlot(SpriteRectangle slot, RectangleData data, Player player, bool enabled = true)
+    : base([slot, data.GetRectCenterized(slot.Rect.Centre)], enabled)
     {
         this.player = player;
     }
 
-    public void UpdateWeapon(WeaponSlotData weapData)
+    public void UpdateWeapon(RectangleData data)
     {
-        rects[1] = weapData.GetRect(rects[0].Rect.Centre);
+        rects[1] = data.GetRectCenterized(rects[0].Rect.Centre);
     }
 }

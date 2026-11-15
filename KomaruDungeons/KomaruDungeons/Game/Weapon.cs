@@ -14,11 +14,11 @@ public abstract class Weapon : SpriteRectangle
     protected Player player = null;
     public bool FlippedY { get { return flipY; } }
 
-    public WeaponSlotData SlotData
+    public RectangleData SlotData
     {
         get
         {
-            return new WeaponSlotData(sprite, size);
+            return new RectangleData(sprite, size);
         }
     }
 
