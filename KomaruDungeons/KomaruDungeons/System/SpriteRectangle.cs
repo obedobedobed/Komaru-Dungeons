@@ -18,7 +18,7 @@ public class SpriteRectangle
     protected bool flipY = false;
     protected float rotation = 0f;
     protected Vector2 rotationOrigin = Vector2.Zero;
-    public RectangleTag Tag { get; protected set; } = RectangleTag.None;
+    public RectangleTag Tag { get; protected set; } = RectangleTag.Default;
 
     public RectangleF Rect
     {
@@ -36,19 +36,21 @@ public class SpriteRectangle
         }
     }
 
-    public SpriteRectangle(Texture2D sprite, Vector2 position, Vector2 size)
+    public SpriteRectangle(Texture2D sprite, Vector2 position, Vector2 size, RectangleTag tag = RectangleTag.Default)
     {
         this.sprite = sprite;
         this.position = position;
         this.size = size;
+        Tag = tag;
         mode = SpriteRectangleMode.Solo;
     }
 
-    public SpriteRectangle(Atlas atlas, Vector2 position, Vector2 size)
+    public SpriteRectangle(Atlas atlas, Vector2 position, Vector2 size, RectangleTag tag = RectangleTag.Default)
     {
         this.atlas = atlas;
         this.position = position;
         this.size = size;
+        Tag = tag;
         mode = SpriteRectangleMode.Atlas;
     }
 

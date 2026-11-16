@@ -117,7 +117,6 @@ public class Gun : Weapon, IHasAmmo
     protected virtual void WaitRecharge(float delta)
     {
         rechargeTimeNow -= delta;
-        Console.WriteLine(rechargeTimeNow);
 
         if (rechargeTimeNow <= 0)
         {

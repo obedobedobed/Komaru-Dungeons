@@ -3,6 +3,7 @@ using KomaruDungeons.KomaruDungeons.Game;
 using KomaruDungeons.KomaruDungeons.Interfaces;
 using KomaruDungeons.KomaruDungeons.System;
 using KomaruDungeons.KomaruDungeons.System.UI;
+using KomaruDungeons.KomaruDungeons.Tiles;
 using KomaruDungeons.KomaruDungeons.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -34,6 +35,8 @@ public class GameScene : Scene
                 new Vector2(64, 64), player, Content.Load<Texture2D>("Sprites/Weapon/Bite")
             )
         );
+
+        rectangles.Add(WallTile.Data.GetRect(new Vector2(300, 300)));
 
         // UI
         // Player Health Bar

@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using KomaruDungeons.KomaruDungeons.Interfaces;
 using KomaruDungeons.KomaruDungeons.System;
 using KomaruDungeons.KomaruDungeons.System.UI;
@@ -7,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace KomaruDungeons.KomaruDungeons.Game;
 
-public class Player : SpriteRectangle
+public class Player : SpriteRectangle, ICheckingCollisions
 {
     // Health
     protected readonly int maxHealth;
@@ -180,6 +183,18 @@ public class Player : SpriteRectangle
 
         var totalMovement = dir * SPEED * delta;
         position += totalMovement;
+    }
+
+    public void CheckCollisions(SpriteRectangle[] rects)
+    {
+        foreach (var rect in rects)
+        {
+            if (CollisionMatrixes.MoveMatrix.GetValueOrDefault(RectangleTag.Player).Contains(rect.Tag) && rect.Rect.ToRectangle.Intersects(Rect.ToRectangle))
+            {
+                position = lastPos;
+                break;
+            }
+        }
     }
 
     private void Animate(float delta)

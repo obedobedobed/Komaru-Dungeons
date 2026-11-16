@@ -2,10 +2,12 @@ namespace KomaruDungeons.KomaruDungeons.System;
 
 public enum RectangleTag
 {
-    None,
+    Default,
     Player,
     Enemy,
     Weapon,
     Bullet,
-    PlayerHealthBar
+    UI,
+    WallTile,
+    GroundTile
 }
