@@ -73,7 +73,7 @@ public class Gun : Weapon, IHasAmmo
 
     protected override void Fire()
     {
-        if (ammo <= 0)
+        if (ammo <= 0 || RechargingNow)
         {
             return;
         }
