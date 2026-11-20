@@ -29,7 +29,7 @@ public static class GroundTile
             var texture = new Texture2D(gameInstance.GraphicsDevice, targetRect.Width, targetRect.Height);
             texture.SetData(spriteData);
 
-            return new RectangleData(texture, size, RectangleTag.GroundTile);
+            return new RectangleData(texture, size, Layers.GROUND_LAYER, RectangleTag.GroundTile);
         }
     }
 }

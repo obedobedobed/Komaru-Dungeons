@@ -16,5 +16,5 @@ public static class WallTile
         WallTile.sprite = sprite;
     }
 
-    public static RectangleData Data => new RectangleData(sprite, size, RectangleTag.WallTile);
+    public static RectangleData Data => new RectangleData(sprite, size, Layers.WALL_LAYER, RectangleTag.WallTile);
 }

@@ -62,7 +62,7 @@ public class Game1 : Game
 
         Pixel = Content.Load<Texture2D>("Sprites/Pixel");
 
-        GroundTile.Setup(new Atlas(Content.Load<Texture2D>("Sprites/Environment/Level1/GroundAtlas"), new Point(64, 64)), instance);
+        GroundTile.Setup(new Atlas(Content.Load<Texture2D>("Sprites/Environment/Level1/GroundAtlas"), new Point(16, 16)), instance);
         WallTile.Setup(Content.Load<Texture2D>("Sprites/Environment/Level1/Wall"));
 
         SceneManager.LoadScene(GAME_SCENE_INDEX, Content);

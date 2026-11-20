@@ -99,13 +99,12 @@ public class Player : SpriteRectangle, ICheckingCollisions
     // Misc
     private Vector2 lastPos;
 
-    public Player(Atlas atlas, Vector2 position, Vector2 size, Weapon startWeapon, int health) : base(atlas, position, size)
+    public Player(Atlas atlas, Vector2 position, Vector2 size, Weapon startWeapon, int health) : base(atlas, position, size, Layers.Y_DEPENDED, RectangleTag.Player)
     {
         maxHealth = health;
         this.health = maxHealth;
         weapons[currentWeapon] = startWeapon;
         weapons[currentWeapon].SetPlayer(this);
-        Tag = RectangleTag.Player;
 
         rechargeBarRelativePos = new Vector2(12, -10);
         var rechargeBarSize = new Vector2(this.size.X - 24, 5);

@@ -32,7 +32,7 @@ public abstract class Enemy : SpriteRectangle
     // Misc
     protected Player player;
 
-    public Enemy(Atlas atlas, Vector2 position, Vector2 size, float speed, Player player, float frameTime, int health) : base(atlas, position, size)
+    public Enemy(Atlas atlas, Vector2 position, Vector2 size, float speed, Player player, float frameTime, int health) : base(atlas, position, size, Layers.Y_DEPENDED, RectangleTag.Enemy)
     {
         this.speed = speed;
         this.player = player;
@@ -40,7 +40,6 @@ public abstract class Enemy : SpriteRectangle
         frameTimeNow = this.frameTime;
         maxHealth = health;
         this.health = maxHealth;
-        Tag = RectangleTag.Enemy;
     }
 
     public override void Update(GameTime gameTime)

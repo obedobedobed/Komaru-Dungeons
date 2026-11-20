@@ -1,3 +1,4 @@
+using System.Linq;
 using KomaruDungeons.KomaruDungeons.Enemies;
 using KomaruDungeons.KomaruDungeons.Game;
 using KomaruDungeons.KomaruDungeons.Interfaces;
@@ -37,6 +38,7 @@ public class GameScene : Scene
         );
 
         rectangles.Add(WallTile.Data.GetRect(new Vector2(300, 300)));
+        rectangles.Add(GroundTile.Data.GetRect(new Vector2(300 - 64, 300)));
 
         // UI
         // Player Health Bar
@@ -117,10 +119,7 @@ public class GameScene : Scene
         spriteBatch.Begin(samplerState: SamplerState.PointClamp, blendState: BlendState.NonPremultiplied);
 
         // Drawing rects
-        foreach (var rect in rectangles)
-        {
-            rect.Draw(spriteBatch);
-        }
+        LayeredDrawer.Draw(spriteBatch, rectangles.ToList());
 
         spriteBatch.End();
 

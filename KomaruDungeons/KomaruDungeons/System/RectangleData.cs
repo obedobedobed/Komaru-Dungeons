@@ -6,24 +6,27 @@ namespace KomaruDungeons.KomaruDungeons.System;
 // Needed for safety
 public class RectangleData
 {
-    private Texture2D sprite;
-    private Atlas atlas;
-    private Vector2 size;
-    private SpriteRectangleMode mode;
-    private RectangleTag tag;
+    private readonly Texture2D sprite;
+    private readonly Atlas atlas;
+    private readonly Vector2 size;
+    private readonly SpriteRectangleMode mode;
+    private readonly float layer;
+    private readonly RectangleTag tag;
 
-    public RectangleData(Texture2D sprite, Vector2 size, RectangleTag tag = RectangleTag.Default)
+    public RectangleData(Texture2D sprite, Vector2 size, float layer = 0f, RectangleTag tag = RectangleTag.Default)
     {
         this.sprite = sprite;
         this.size = size;
+        this.layer = layer;
         this.tag = tag;
         mode = SpriteRectangleMode.Solo;
     }
 
-    public RectangleData(Atlas atlas, Vector2 size, RectangleTag tag = RectangleTag.Default)
+    public RectangleData(Atlas atlas, Vector2 size, float layer = 0f, RectangleTag tag = RectangleTag.Default)
     {
         this.atlas = atlas;
         this.size = size;
+        this.layer = layer;
         this.tag = tag;
         mode = SpriteRectangleMode.Atlas;
     }
@@ -32,8 +35,8 @@ public class RectangleData
     {
         return mode switch
         {
-            SpriteRectangleMode.Solo  => new SpriteRectangle(sprite, pos, size, tag),
-            SpriteRectangleMode.Atlas => new SpriteRectangle(atlas, pos, size, tag),
+            SpriteRectangleMode.Solo  => new SpriteRectangle(sprite, pos, size, layer, tag),
+            SpriteRectangleMode.Atlas => new SpriteRectangle(atlas, pos, size, layer, tag),
             _                         => null
         };
     }
@@ -44,8 +47,8 @@ public class RectangleData
 
         return mode switch
         {
-            SpriteRectangleMode.Solo  => new SpriteRectangle(sprite, centerizedPos, size, tag),
-            SpriteRectangleMode.Atlas => new SpriteRectangle(atlas, centerizedPos, size, tag),
+            SpriteRectangleMode.Solo  => new SpriteRectangle(sprite, centerizedPos, size, layer, tag),
+            SpriteRectangleMode.Atlas => new SpriteRectangle(atlas, centerizedPos, size, layer, tag),
             _                         => null
         };
     }
