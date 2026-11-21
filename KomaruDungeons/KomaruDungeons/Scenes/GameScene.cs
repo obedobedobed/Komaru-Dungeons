@@ -20,6 +20,7 @@ public class GameScene : Scene
     private Bar ammoBar;
     private Bar totalAmmoBar;
     private WeaponSlot weaponSlot;
+    private PotionSlot potionSlot;
 
     public override void Load(ContentManager Content)
     {
@@ -64,6 +65,12 @@ public class GameScene : Scene
         var weapData = player.WeapSlotData;
         weaponSlot = new WeaponSlot(weapSlot, weapData, player);
         uiElements.Add(weaponSlot);
+
+        // Potion Slot
+        var potSlot = new SpriteRectangle(Content.Load<Texture2D>("Sprites/UI/InventorySlot"), Game1.RightDownCorner - new Vector2(40 + 128, 20 + 64), new Vector2(64, 64));
+        var potData = player.PotionData;
+        potionSlot = new PotionSlot(potSlot, potData, player);
+        uiElements.Add(potionSlot);
     }
 
     public override void Update(GameTime gameTime)
@@ -75,6 +82,8 @@ public class GameScene : Scene
         healthBar.UpdateAmount(player.HealthBarAmount);
         ammoBar.UpdateAmount(player.AmmoBarAmount);
         totalAmmoBar.UpdateAmount(player.TotalAmmoBarAmount);
+
+        potionSlot.UpdatePotion(player.PotionData);
     }
 
     public override void ManageRectangles(GameTime gameTime)

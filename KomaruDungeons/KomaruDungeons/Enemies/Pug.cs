@@ -33,7 +33,7 @@ public class Pug : Enemy
 
     public Pug(Atlas atlas, Vector2 position, Vector2 size, Player player, Texture2D biteTexture) : base(atlas, position, size, 70f, player, 0.2f, 20)
     {
-        anims = new int[3][];
+        anims = new int[ANIMS_COUNT][];
         for (int i = 0; i < anims.Length; i++)
         {
             switch (i)

@@ -17,4 +17,9 @@ public class WeaponSlot : UIElement
     {
         rects[1] = data.GetRectCenterized(rects[0].Rect.Centre);
     }
+
+    public void RemoveWeapon()
+    {
+        rects[1] = EmptyRectangle.Get;
+    }
 }

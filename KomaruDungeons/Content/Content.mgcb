@@ -13,7 +13,7 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Sprites/Enemies/Pug.png
+#begin Sprites/EmptyPixel.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -24,7 +24,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /processorParam:Version=3.8.6.0
-/build:Sprites/Enemies/Pug.png
+/build:Sprites/EmptyPixel.png
 
 #begin Sprites/Enemies/Pug.png
 /importer:TextureImporter
@@ -91,19 +91,6 @@
 /processorParam:Version=3.8.6.0
 /build:Sprites/Pixel.png
 
-#begin Sprites/Pixel.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/processorParam:Version=3.8.6.0
-/build:Sprites/Pixel.png
-
 #begin Sprites/Player.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -117,7 +104,7 @@
 /processorParam:Version=3.8.6.0
 /build:Sprites/Player.png
 
-#begin Sprites/Player.png
+#begin Sprites/Potions/HealPotion.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -128,20 +115,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /processorParam:Version=3.8.6.0
-/build:Sprites/Player.png
-
-#begin Sprites/Projectiles/GlockBullet.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/processorParam:Version=3.8.6.0
-/build:Sprites/Projectiles/GlockBullet.png
+/build:Sprites/Potions/HealPotion.png
 
 #begin Sprites/Projectiles/GlockBullet.png
 /importer:TextureImporter
@@ -169,19 +143,6 @@
 /processorParam:Version=3.8.6.0
 /build:Sprites/UI/InventorySlot.png
 
-#begin Sprites/UI/InventorySlot.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/processorParam:Version=3.8.6.0
-/build:Sprites/UI/InventorySlot.png
-
 #begin Sprites/Weapon/Bite.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -194,32 +155,6 @@
 /processorParam:TextureFormat=Color
 /processorParam:Version=3.8.6.0
 /build:Sprites/Weapon/Bite.png
-
-#begin Sprites/Weapon/Bite.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/processorParam:Version=3.8.6.0
-/build:Sprites/Weapon/Bite.png
-
-#begin Sprites/Weapon/Glock.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/processorParam:Version=3.8.6.0
-/build:Sprites/Weapon/Glock.png
 
 #begin Sprites/Weapon/Glock.png
 /importer:TextureImporter

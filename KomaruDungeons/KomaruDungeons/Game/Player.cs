@@ -76,6 +76,10 @@ public class Player : SpriteRectangle, ICheckingCollisions
         }
     }
 
+    // Potions
+    private PotionType potion = PotionType.Heal;
+    public RectangleData PotionData => PotionsData.Get(potion);
+
     // Animation
     private const float FRAME_TIME = 0.2f;
     private float frameTime = FRAME_TIME;
@@ -98,6 +102,7 @@ public class Player : SpriteRectangle, ICheckingCollisions
 
     // Misc
     private Vector2 lastPos;
+    private KeyboardState lastKeyboard;
 
     public Player(Atlas atlas, Vector2 position, Vector2 size, Weapon startWeapon, int health) : base(atlas, position, size, Layers.Y_DEPENDED, RectangleTag.Player)
     {
@@ -153,6 +158,14 @@ public class Player : SpriteRectangle, ICheckingCollisions
             vDirection = VerticalDirection.Down;
         else
             vDirection = VerticalDirection.None;
+
+        // Potion
+        if (keyboard.IsKeyDown(Keys.E) && !lastKeyboard.IsKeyDown(Keys.E))
+        {
+            DrinkPotion();
+        }
+
+        lastKeyboard = keyboard;
     }
 
     private void Move(float delta)
@@ -278,5 +291,22 @@ public class Player : SpriteRectangle, ICheckingCollisions
         {
             
         }
+    }
+
+    private void DrinkPotion()
+    {
+        if (potion == PotionType.None)
+        {
+            return;
+        }
+
+        switch (potion)
+        {
+            case PotionType.Heal:
+                health += 3;
+                break;
+        }
+
+        potion = PotionType.None;
     }
 }

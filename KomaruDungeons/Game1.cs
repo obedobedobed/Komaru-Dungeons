@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using KomaruDungeons.KomaruDungeons.Game;
 using KomaruDungeons.KomaruDungeons.Scenes;
 using KomaruDungeons.KomaruDungeons.System;
 using KomaruDungeons.KomaruDungeons.Tiles;
@@ -20,6 +21,7 @@ public class Game1 : Game
     // Misc
     private static Game1 instance;
     public static Texture2D Pixel { get; private set; }
+    public static Texture2D EmptyPixel { get; private set; }
     public static Vector2 RightDownCorner
     {
         get
@@ -61,9 +63,22 @@ public class Game1 : Game
         spriteBatch = new SpriteBatch(GraphicsDevice);
 
         Pixel = Content.Load<Texture2D>("Sprites/Pixel");
+        EmptyPixel = Content.Load<Texture2D>("Sprites/EmptyPixel");
 
         GroundTile.Setup(new Atlas(Content.Load<Texture2D>("Sprites/Environment/Level1/GroundAtlas"), new Point(16, 16)), instance);
         WallTile.Setup(Content.Load<Texture2D>("Sprites/Environment/Level1/Wall"));
+
+        var potionsData = new RectangleData[PotionsData.POTIONS_COUNT];
+        for (int i = 0; i < potionsData.Length; i++)
+        {
+            switch (i)
+            {
+                case PotionsData.HEAL_POTION_INDEX:
+                    potionsData[i] = new RectangleData(Content.Load<Texture2D>("Sprites/Potions/HealPotion"), new Vector2(32, 32));
+                    break;
+            }
+        }
+        PotionsData.Setup(potionsData);
 
         SceneManager.LoadScene(GAME_SCENE_INDEX, Content);
     }
