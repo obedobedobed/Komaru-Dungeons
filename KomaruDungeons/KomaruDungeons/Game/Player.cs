@@ -132,7 +132,7 @@ public class Player : SpriteRectangle, ICheckingCollisions
 
         if (weapons[currentWeapon] is IHasAmmo hasAmmo && hasAmmo.RechargingNow)
         {
-            rechargeBar.UpdateAmount(hasAmmo.RechargeTimeNow / hasAmmo.RechargeTime);
+            rechargeBar.UpdateAmount(1 - hasAmmo.RechargeTimeNow / hasAmmo.RechargeTime);
             rechargeBar.Follow(this, rechargeBarRelativePos);
         }
     }
@@ -201,7 +201,7 @@ public class Player : SpriteRectangle, ICheckingCollisions
     {
         foreach (var rect in rects)
         {
-            if (CollisionMatrixes.MoveMatrix.GetValueOrDefault(RectangleTag.Player).Contains(rect.Tag) && rect.Rect.ToRectangle.Intersects(Rect.ToRectangle))
+            if (CollisionMatrixes.MoveMatrix.GetValueOrDefault(Tag).Contains(rect.Tag) && rect.Rect.ToRectangle.Intersects(Rect.ToRectangle))
             {
                 position = lastPos;
                 break;
@@ -304,6 +304,10 @@ public class Player : SpriteRectangle, ICheckingCollisions
         {
             case PotionType.Heal:
                 health += 3;
+                if (health > maxHealth)
+                {
+                    health = maxHealth;
+                }
                 break;
         }
 

@@ -21,5 +21,11 @@ public static class CollisionMatrixes
                 RectangleTag.WallTile
             ]
         },
+        {
+            RectangleTag.Bullet,
+            [
+                RectangleTag.Enemy, RectangleTag.WallTile
+            ]
+        }
     };
 }

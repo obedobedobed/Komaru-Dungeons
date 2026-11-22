@@ -89,13 +89,15 @@ public class GameScene : Scene
     public override void ManageRectangles(GameTime gameTime)
     {
         // Updating rects
+        var rectsArray = rectangles.ToArray();
+
         foreach (var rect in rectangles)
         {
             rect.Update(gameTime);
             
             if (rect is ICheckingCollisions colCheck)
             {
-                colCheck.CheckCollisions(rectangles.ToArray());
+                colCheck.CheckCollisions(rectsArray);
             }
         }
 
@@ -140,7 +142,7 @@ public class GameScene : Scene
         {
             if (!player.AmmoWeapon && (elem.Equals(ammoBar) || elem.Equals(totalAmmoBar)))
             {
-                return;
+                continue;
             }
             
             elem.Draw(spriteBatch);
