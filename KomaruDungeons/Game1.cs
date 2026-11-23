@@ -35,6 +35,9 @@ public class Game1 : Game
         graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
+        graphics.PreferredBackBufferHeight = 576;
+        graphics.PreferredBackBufferWidth = 896;
+        graphics.ApplyChanges();
         instance = this;
     }
 
@@ -67,6 +70,7 @@ public class Game1 : Game
 
         GroundTile.Setup(new Atlas(Content.Load<Texture2D>("Sprites/Environment/Level1/GroundAtlas"), new Point(16, 16)), instance);
         WallTile.Setup(Content.Load<Texture2D>("Sprites/Environment/Level1/Wall"));
+        BoxTile.Setup(Content.Load<Texture2D>("Sprites/Environment/Level1/Box"));
 
         var potionsData = new RectangleData[PotionsData.POTIONS_COUNT];
         for (int i = 0; i < potionsData.Length; i++)

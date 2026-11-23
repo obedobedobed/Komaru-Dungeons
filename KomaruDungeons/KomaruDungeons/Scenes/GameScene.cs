@@ -1,6 +1,7 @@
 using System.Linq;
 using KomaruDungeons.KomaruDungeons.Enemies;
 using KomaruDungeons.KomaruDungeons.Game;
+using KomaruDungeons.KomaruDungeons.Game.Generator;
 using KomaruDungeons.KomaruDungeons.Interfaces;
 using KomaruDungeons.KomaruDungeons.System;
 using KomaruDungeons.KomaruDungeons.System.UI;
@@ -26,7 +27,7 @@ public class GameScene : Scene
     {
         // Rects
         var startWeapon = new Glock(Content.Load<Texture2D>("Sprites/Weapon/Glock"), new Vector2(32, 32), Content.Load<Texture2D>("Sprites/Projectiles/GlockBullet"));
-        player = new Player(new Atlas(Content.Load<Texture2D>("Sprites/Player"), new Point(16, 16)), new Vector2(40, 100), new Vector2(64, 64), startWeapon, 25);
+        player = new Player(new Atlas(Content.Load<Texture2D>("Sprites/Player"), new Point(16, 16)), new Vector2(200, 300), new Vector2(64, 64), startWeapon, 25);
         rectangles.Add(player);
 
         rectangles.Add
@@ -38,8 +39,7 @@ public class GameScene : Scene
             )
         );
 
-        rectangles.Add(WallTile.Data.GetRect(new Vector2(300, 300)));
-        rectangles.Add(GroundTile.Data.GetRect(new Vector2(300 - 64, 300)));
+        rectangles.AddRange(RoomGenerator.Generate(Vector2.Zero));
 
         // UI
         // Player Health Bar

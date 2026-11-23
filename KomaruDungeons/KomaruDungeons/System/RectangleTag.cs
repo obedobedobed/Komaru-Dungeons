@@ -9,5 +9,6 @@ public enum RectangleTag
     Bullet,
     UI,
     WallTile,
-    GroundTile
+    GroundTile,
+    BoxTile
 }
