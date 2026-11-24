@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using KomaruDungeons.KomaruDungeons.Enemies;
 using KomaruDungeons.KomaruDungeons.Game;
@@ -15,7 +17,12 @@ namespace KomaruDungeons.KomaruDungeons.Scenes;
 
 public class GameScene : Scene
 {
+    private List<Room> rooms = new List<Room>();
+
     private Player player;
+    public Camera Camera { get; private set; }
+
+    public static GameScene Instance { get; private set; }
 
     private Bar healthBar;
     private Bar ammoBar;
@@ -25,21 +32,39 @@ public class GameScene : Scene
 
     public override void Load(ContentManager Content)
     {
+        Instance = this;
+
+        Camera = new Camera();
+
         // Rects
         var startWeapon = new Glock(Content.Load<Texture2D>("Sprites/Weapon/Glock"), new Vector2(32, 32), Content.Load<Texture2D>("Sprites/Projectiles/GlockBullet"));
         player = new Player(new Atlas(Content.Load<Texture2D>("Sprites/Player"), new Point(16, 16)), new Vector2(200, 300), new Vector2(64, 64), startWeapon, 25);
         rectangles.Add(player);
 
-        rectangles.Add
-        (
-            new Pug
-            (
-                new Atlas(Content.Load<Texture2D>("Sprites/Enemies/Pug"), new Point(16, 16)), new Vector2(400, 200),
-                new Vector2(64, 64), player, Content.Load<Texture2D>("Sprites/Weapon/Bite")
-            )
-        );
+        // rectangles.Add
+        // (
+        //     new Pug
+        //     (
+        //         new Atlas(Content.Load<Texture2D>("Sprites/Enemies/Pug"), new Point(16, 16)), new Vector2(400, 200),
+        //         new Vector2(64, 64), player, Content.Load<Texture2D>("Sprites/Weapon/Bite")
+        //     )
+        // );
 
-        rectangles.AddRange(RoomGenerator.Generate(Vector2.Zero));
+        rooms.AddRange(LevelGenerator.Generate());
+        Console.WriteLine($"got {rooms.Count} rooms");
+
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            rectangles.AddRange(rooms[i].Rectangles);
+            Console.WriteLine($"copied {rooms[i].Rectangles.Length} rects from room {i} (total scene rects now: {rectangles.Count})");
+
+            if (rooms[i].Type == LevelLayouts.START_INDEX)
+            {
+                player.MoveRoom(i, rooms[i].Position);
+                Camera.MovePosition(rooms[i].Position);
+                Console.WriteLine($"moved player to room {i}");
+            }
+        }
 
         // UI
         // Player Health Bar
@@ -77,6 +102,9 @@ public class GameScene : Scene
     {
         // Managing rectangles
         ManageRectangles(gameTime);
+
+        // Managing rooms
+        ManageRooms();
 
         // Updating specific
         healthBar.UpdateAmount(player.HealthBarAmount);
@@ -124,10 +152,23 @@ public class GameScene : Scene
         rmRects.Clear();
     }
 
+    public void ManageRooms()
+    {
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            var roomRect = new Rectangle(rooms[i].Position.ToPoint(), new Point(Game1.ROOM_WIDTH, Game1.ROOM_HEIGHT));
+            if (player.Rect.ToRectangle.Intersects(roomRect) && player.CurrentRoomIndex != i)
+            {
+                player.MoveRoom(i);
+                Camera.MovePosition(rooms[i].Position);
+            }
+        }
+    }
+
     public override void Draw(SpriteBatch spriteBatch)
     {
         // Drawing rects
-        spriteBatch.Begin(samplerState: SamplerState.PointClamp, blendState: BlendState.NonPremultiplied);
+        spriteBatch.Begin(samplerState: SamplerState.PointClamp, blendState: BlendState.NonPremultiplied, transformMatrix: Camera.Matrix);
 
         // Drawing rects
         LayeredDrawer.Draw(spriteBatch, rectangles.ToList());

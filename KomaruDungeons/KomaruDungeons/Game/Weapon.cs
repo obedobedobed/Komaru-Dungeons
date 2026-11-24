@@ -1,4 +1,5 @@
 using System;
+using KomaruDungeons.KomaruDungeons.Scenes;
 using KomaruDungeons.KomaruDungeons.System;
 using KomaruDungeons.KomaruDungeons.System.UI;
 using Microsoft.Xna.Framework;
@@ -54,7 +55,7 @@ public abstract class Weapon : SpriteRectangle
     protected virtual void Rotate()
     {
         var mouse = Mouse.GetState();
-        var mousePos = new Vector2(mouse.X, mouse.Y);
+        var mousePos = new Vector2(mouse.X, mouse.Y) + GameScene.Instance.Camera.Position;
         var dir = mousePos - position;
         rotation = MathF.Atan2(dir.Y, dir.X);
 

@@ -1,5 +1,6 @@
 using System;
 using KomaruDungeons.KomaruDungeons.Interfaces;
+using KomaruDungeons.KomaruDungeons.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -82,7 +83,7 @@ public class Gun : Weapon, IHasAmmo
 
         // Getting direction
         var mouse = Mouse.GetState();
-        var mousePos = new Vector2(mouse.X, mouse.Y);
+        var mousePos = new Vector2(mouse.X, mouse.Y) + GameScene.Instance.Camera.Position;
         var direction = mousePos - position;
         direction.Normalize();
 

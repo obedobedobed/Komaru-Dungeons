@@ -103,6 +103,7 @@ public class Player : SpriteRectangle, ICheckingCollisions
     // Misc
     private Vector2 lastPos;
     private KeyboardState lastKeyboard;
+    public int CurrentRoomIndex { get; private set; } = 0;
 
     public Player(Atlas atlas, Vector2 position, Vector2 size, Weapon startWeapon, int health) : base(atlas, position, size, Layers.Y_DEPENDED, RectangleTag.Player)
     {
@@ -312,5 +313,14 @@ public class Player : SpriteRectangle, ICheckingCollisions
         }
 
         potion = PotionType.None;
+    }
+
+    public void MoveRoom(int index, Vector2 roomPos = new Vector2())
+    {
+        CurrentRoomIndex = index;
+        if (roomPos != Vector2.Zero)
+        {
+            position = roomPos + new Vector2(200, 200);
+        }
     }
 }

@@ -30,13 +30,16 @@ public class Game1 : Game
         }
     }
 
+    public const int ROOM_WIDTH = 896;
+    public const int ROOM_HEIGHT = 576;
+
     public Game1()
     {
         graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
-        graphics.PreferredBackBufferHeight = 576;
-        graphics.PreferredBackBufferWidth = 896;
+        graphics.PreferredBackBufferHeight = ROOM_HEIGHT;
+        graphics.PreferredBackBufferWidth = ROOM_WIDTH;
         graphics.ApplyChanges();
         instance = this;
     }
