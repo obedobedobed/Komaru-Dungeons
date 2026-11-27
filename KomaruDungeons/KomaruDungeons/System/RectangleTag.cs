@@ -10,5 +10,6 @@ public enum RectangleTag
     UI,
     WallTile,
     GroundTile,
-    BoxTile
+    BoxTile,
+    DoorTile
 }

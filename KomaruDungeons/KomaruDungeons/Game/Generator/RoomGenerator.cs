@@ -8,7 +8,7 @@ namespace KomaruDungeons.KomaruDungeons.Game.Generator;
 
 public static class RoomGenerator
 {
-    public static SpriteRectangle[] Generate(Vector2 pos, int levelIndex)
+    public static SpriteRectangle[] Generate(Vector2 pos, int levelIndex, bool topDoor, bool bottomDoor, bool rightDoor, bool leftDoor)
     {
         var generated = new List<SpriteRectangle>();
         int[,] layout;
@@ -48,7 +48,21 @@ public static class RoomGenerator
                         generated.Add(GroundTile.Data.GetRect(new Vector2(posX, posY))); // TODO: replace to abyss tile when will be added
                         break;
                     case RoomLayouts.DOOR_INDEX:
-                        generated.Add(GroundTile.Data.GetRect(new Vector2(posX, posY))); // TODO: replace to door tile when will be added
+                        bool needDoor = topDoor    && y == 0                       ||
+                                        bottomDoor && y == layout.GetLength(0) - 1 ||
+                                        rightDoor  && x == layout.GetLength(1) - 1 ||
+                                        leftDoor   && x == 0;
+
+                        if (needDoor)
+                        {
+                            generated.Add(GroundTile.Data.GetRect(new Vector2(posX, posY)));
+                            generated.Add(DoorTile.Data.GetRect(new Vector2(posX, posY)));
+                        }
+                        else
+                        {
+                            generated.Add(WallTile.Data.GetRect(new Vector2(posX - 4, posY - 4)));
+                        }
+
                         break;
                 }
                 

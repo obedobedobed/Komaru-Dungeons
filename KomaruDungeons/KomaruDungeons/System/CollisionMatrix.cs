@@ -18,13 +18,13 @@ public static class CollisionMatrixes
         {
             RectangleTag.Player,
             [
-                RectangleTag.WallTile, RectangleTag.BoxTile
+                RectangleTag.WallTile, RectangleTag.BoxTile, RectangleTag.DoorTile
             ]
         },
         {
             RectangleTag.Bullet,
             [
-                RectangleTag.Enemy, RectangleTag.WallTile, RectangleTag.BoxTile
+                RectangleTag.Enemy, RectangleTag.WallTile, RectangleTag.BoxTile, RectangleTag.DoorTile
             ]
         }
     };

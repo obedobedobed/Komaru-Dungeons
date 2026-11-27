@@ -43,7 +43,7 @@ public class Bullet : SpriteRectangle, ICheckingCollisions
     {
         foreach (var rect in rects)
         {
-            if (CollisionMatrixes.MoveMatrix.GetValueOrDefault(Tag).Contains(rect.Tag) && Rect.ToRectangle.Intersects(rect.Rect.ToRectangle))
+            if (CollisionMatrixes.MoveMatrix.GetValueOrDefault(Tag).Contains(rect.Tag) && rect.Collideable && Rect.ToRectangle.Intersects(rect.Rect.ToRectangle))
             {
                 if (rect is Enemy enemy)
                 {

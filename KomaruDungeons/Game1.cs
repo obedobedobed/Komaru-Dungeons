@@ -74,6 +74,7 @@ public class Game1 : Game
         GroundTile.Setup(new Atlas(Content.Load<Texture2D>("Sprites/Environment/Level1/GroundAtlas"), new Point(16, 16)), instance);
         WallTile.Setup(Content.Load<Texture2D>("Sprites/Environment/Level1/Wall"));
         BoxTile.Setup(Content.Load<Texture2D>("Sprites/Environment/Level1/Box"));
+        DoorTile.Setup(new Atlas(Content.Load<Texture2D>("Sprites/Environment/Level1/Door"), new Point(16, 16)));
 
         var potionsData = new RectangleData[PotionsData.POTIONS_COUNT];
         for (int i = 0; i < potionsData.Length; i++)

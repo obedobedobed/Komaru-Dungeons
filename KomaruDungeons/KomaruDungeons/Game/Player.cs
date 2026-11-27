@@ -202,7 +202,7 @@ public class Player : SpriteRectangle, ICheckingCollisions
     {
         foreach (var rect in rects)
         {
-            if (CollisionMatrixes.MoveMatrix.GetValueOrDefault(Tag).Contains(rect.Tag) && rect.Rect.ToRectangle.Intersects(Rect.ToRectangle))
+            if (CollisionMatrixes.MoveMatrix.GetValueOrDefault(Tag).Contains(rect.Tag) && rect.Collideable && rect.Rect.ToRectangle.Intersects(Rect.ToRectangle))
             {
                 position = lastPos;
                 break;

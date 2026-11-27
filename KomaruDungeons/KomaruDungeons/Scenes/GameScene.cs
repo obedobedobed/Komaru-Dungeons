@@ -30,6 +30,8 @@ public class GameScene : Scene
     private WeaponSlot weaponSlot;
     private PotionSlot potionSlot;
 
+    private bool firstUpdate = true;
+
     public override void Load(ContentManager Content)
     {
         Instance = this;
@@ -100,6 +102,15 @@ public class GameScene : Scene
 
     public override void Update(GameTime gameTime)
     {
+        if (firstUpdate)
+        {
+            foreach (var room in rooms)
+            {
+                room.ToggleDoors();
+            }
+            firstUpdate = false;
+        }
+
         // Managing rectangles
         ManageRectangles(gameTime);
 

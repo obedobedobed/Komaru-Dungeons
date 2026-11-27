@@ -11,6 +11,7 @@ public static class LevelGenerator
     {
         var generated = new List<Room>();
         var layout = LevelLayouts.Layouts[Random.Shared.Next(0, LevelLayouts.Layouts.Length)];
+        Point[] roomCheckDirs = [new Point(0, -1), new Point(0, 1), new Point(-1, 0), new Point(1, 0)];
 
         float yPos = 0f;
         for (int y = 0; y < layout.GetLength(0); y++)
@@ -20,7 +21,43 @@ public static class LevelGenerator
             {
                 int index = layout[y, x];
                 var pos = new Vector2(xPos, yPos);
-                generated.AddRange(new Room(pos, RoomGenerator.Generate(pos, index), index));
+
+                bool topDoor = false;
+                bool bottomDoor = false;
+                bool rightDoor = false;
+                bool leftDoor = false;
+
+                for (int i = 0; i < roomCheckDirs.Length; i++)
+                {
+                    if (roomCheckDirs[i].Y < 0 && y == 0                       ||
+                        roomCheckDirs[i].Y > 0 && y == layout.GetLength(0) - 1 ||
+                        roomCheckDirs[i].X < 0 && x == 0                       ||
+                        roomCheckDirs[i].X > 0 && x == layout.GetLength(1) - 1)
+                    {
+                        continue;
+                    }
+
+                    if (layout[y + roomCheckDirs[i].Y, x + roomCheckDirs[i].X] != LevelLayouts.EMPTY_INDEX)
+                    {
+                        switch (i)
+                        {
+                            case 0:
+                                topDoor = true;
+                                break;
+                            case 1:
+                                bottomDoor = true;
+                                break;
+                            case 2:
+                                leftDoor = true;
+                                break;
+                            case 3:
+                                rightDoor = true;
+                                break;
+                        }
+                    }
+                }
+
+                generated.AddRange(new Room(pos, RoomGenerator.Generate(pos, index, topDoor, bottomDoor, rightDoor, leftDoor), index));
                 xPos += Game1.ROOM_WIDTH;
             }
             yPos += Game1.ROOM_HEIGHT;

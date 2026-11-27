@@ -20,6 +20,7 @@ public class SpriteRectangle
     protected Vector2 rotationOrigin = Vector2.Zero;
     public float DrawLayer { get; protected set; }
     public RectangleTag Tag { get; protected set; } = RectangleTag.Default;
+    public bool Collideable { get; protected set; } = true;
 
     public RectangleF Rect
     {

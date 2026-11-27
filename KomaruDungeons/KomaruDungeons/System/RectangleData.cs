@@ -6,8 +6,8 @@ namespace KomaruDungeons.KomaruDungeons.System;
 // Needed for safety
 public class RectangleData
 {
-    private readonly Texture2D sprite;
-    private readonly Atlas atlas;
+    protected readonly Texture2D sprite;
+    protected readonly Atlas atlas;
     private readonly Vector2 size;
     private readonly SpriteRectangleMode mode;
     private readonly float layer;
@@ -31,7 +31,7 @@ public class RectangleData
         mode = SpriteRectangleMode.Atlas;
     }
 
-    public SpriteRectangle GetRect(Vector2 pos)
+    public virtual SpriteRectangle GetRect(Vector2 pos)
     {
         return mode switch
         {
@@ -41,7 +41,7 @@ public class RectangleData
         };
     }
 
-    public SpriteRectangle GetRectCenterized(Vector2 pos)
+    public virtual SpriteRectangle GetRectCenterized(Vector2 pos)
     {
         var centerizedPos = pos - size / 2;
 

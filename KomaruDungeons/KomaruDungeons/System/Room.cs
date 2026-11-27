@@ -14,4 +14,15 @@ public class Room
         Rectangles = rects;
         Type = type;
     }
+
+    public void ToggleDoors()
+    {
+        foreach (var rect in Rectangles)
+        {
+            if (rect is Door door)
+            {
+                door.Toggle();
+            }
+        }
+    }
 }
