@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using KomaruDungeons.KomaruDungeons.Interfaces;
 using KomaruDungeons.KomaruDungeons.System;
+using KomaruDungeons.KomaruDungeons.System.Collisions;
 using KomaruDungeons.KomaruDungeons.System.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -202,10 +203,25 @@ public class Player : SpriteRectangle, ICheckingCollisions
     {
         foreach (var rect in rects)
         {
-            if (CollisionMatrixes.MoveMatrix.GetValueOrDefault(Tag).Contains(rect.Tag) && rect.Collideable && rect.Rect.ToRectangle.Intersects(Rect.ToRectangle))
+            var colInfo = CollisionChecker.GetInfo(this, rect);
+
+            if (colInfo.Collided)
             {
-                position = lastPos;
-                break;
+                switch (colInfo.Direction)
+                {
+                    case CollisionDirection.Top:
+                        position.Y = rect.Rect.ToRectangle.Bottom;
+                        break;
+                    case CollisionDirection.Bottom:
+                        position.Y = rect.Rect.ToRectangle.Top - size.Y;
+                        break;
+                    case CollisionDirection.Right:
+                        position.X = rect.Rect.ToRectangle.Left - size.X;
+                        break;
+                    case CollisionDirection.Left:
+                        position.X = rect.Rect.ToRectangle.Right;
+                        break;
+                }
             }
         }
     }

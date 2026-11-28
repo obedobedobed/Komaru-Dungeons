@@ -57,7 +57,7 @@ public static class LevelGenerator
                     }
                 }
 
-                generated.AddRange(new Room(pos, RoomGenerator.Generate(pos, index, topDoor, bottomDoor, rightDoor, leftDoor), index));
+                generated.AddRange(new Room(pos, RoomGenerator.Generate(pos, index, topDoor, bottomDoor, rightDoor, leftDoor), (RoomType)index));
                 xPos += Game1.ROOM_WIDTH;
             }
             yPos += Game1.ROOM_HEIGHT;

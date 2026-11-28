@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-namespace KomaruDungeons.KomaruDungeons.System;
+namespace KomaruDungeons.KomaruDungeons.System.Collisions;
 
-public static class CollisionMatrixes
+public static class CollisionMatrix
 {
     public static Dictionary<RectangleTag, RectangleTag[]> MoveMatrix = new Dictionary<RectangleTag, RectangleTag[]>()
     {

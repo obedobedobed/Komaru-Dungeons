@@ -60,7 +60,7 @@ public class GameScene : Scene
             rectangles.AddRange(rooms[i].Rectangles);
             Console.WriteLine($"copied {rooms[i].Rectangles.Length} rects from room {i} (total scene rects now: {rectangles.Count})");
 
-            if (rooms[i].Type == LevelLayouts.START_INDEX)
+            if (rooms[i].Type == RoomType.Start)
             {
                 player.MoveRoom(i, rooms[i].Position);
                 Camera.MovePosition(rooms[i].Position);
@@ -165,13 +165,21 @@ public class GameScene : Scene
 
     public void ManageRooms()
     {
+        var playerIntersectionRect = new RectangleF(player.Center, new Vector2(1, 1));
+
         for (int i = 0; i < rooms.Count; i++)
         {
-            var roomRect = new Rectangle(rooms[i].Position.ToPoint(), new Point(Game1.ROOM_WIDTH, Game1.ROOM_HEIGHT));
-            if (player.Rect.ToRectangle.Intersects(roomRect) && player.CurrentRoomIndex != i)
+            if (playerIntersectionRect.ToRectangle.Intersects(rooms[i].Rect.ToRectangle) && player.CurrentRoomIndex != i)
             {
+                rooms[player.CurrentRoomIndex].OnPlayerExit();
                 player.MoveRoom(i);
                 Camera.MovePosition(rooms[i].Position);
+            }
+
+            if (playerIntersectionRect.ToRectangle.Intersects(rooms[i].InsideRect.ToRectangle) && player.CurrentRoomIndex == i && !rooms[i].Entered)
+            {
+                Console.WriteLine($"inside rect enter {playerIntersectionRect.position} -> {rooms[i].InsideRect.ToRectangle}");
+                rooms[i].OnPlayerEntered();
             }
         }
     }

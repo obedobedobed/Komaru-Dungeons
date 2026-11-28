@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using KomaruDungeons.KomaruDungeons.Interfaces;
 using KomaruDungeons.KomaruDungeons.System;
+using KomaruDungeons.KomaruDungeons.System.Collisions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -43,7 +44,7 @@ public class Bullet : SpriteRectangle, ICheckingCollisions
     {
         foreach (var rect in rects)
         {
-            if (CollisionMatrixes.MoveMatrix.GetValueOrDefault(Tag).Contains(rect.Tag) && rect.Collideable && Rect.ToRectangle.Intersects(rect.Rect.ToRectangle))
+            if (CollisionMatrix.MoveMatrix.GetValueOrDefault(Tag).Contains(rect.Tag) && rect.Collideable && Rect.ToRectangle.Intersects(rect.Rect.ToRectangle))
             {
                 if (rect is Enemy enemy)
                 {
